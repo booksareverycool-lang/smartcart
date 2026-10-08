@@ -56,14 +56,6 @@
             background-color: #1e140a;
             background-image: linear-gradient(rgba(30, 20, 10, 0.8), rgba(20, 15, 10, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
         }
-        body.page-tech {
-            background-color: #0a1e19;
-            background-image: linear-gradient(rgba(10, 30, 25, 0.8), rgba(10, 20, 20, 0.9)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
-        }
-        body.page-quiz {
-            background-color: #1a0a20;
-            background-image: linear-gradient(rgba(30, 10, 35, 0.8), rgba(15, 10, 25, 0.9)), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1920&q=80');
-        }
         body.page-creators {
             background-color: #190a1e;
             background-image: linear-gradient(rgba(25, 10, 30, 0.8), rgba(15, 10, 20, 0.9)), url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=1920&q=80');
@@ -190,14 +182,14 @@
             background: rgba(0,0,0,0.25);
         }
 
-        .principles-grid, .creators-grid, .tech-grid {
+        .principles-grid, .creators-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.2rem;
             margin-top: 1.5rem;
         }
 
-        .principle-item, .creator-card, .tech-card {
+        .principle-item, .creator-card {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--card-border);
             padding: 1.25rem;
@@ -205,22 +197,15 @@
             transition: transform 0.2s ease;
         }
 
-        .principle-item:hover, .creator-card:hover, .tech-card:hover {
+        .principle-item:hover, .creator-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.07);
         }
 
-        .principle-item h4, .creator-card h3, .tech-card h3 {
+        .principle-item h4, .creator-card h3 {
             color: var(--accent-blue);
             margin: 0 0 0.5rem 0;
             font-size: 1.2rem;
-        }
-
-        .creator-role {
-            font-size: 0.9rem;
-            color: var(--accent-green);
-            font-weight: bold;
-            margin-bottom: 0.5rem;
         }
 
         .action-buttons {
@@ -246,7 +231,6 @@
             transform: translateY(-2px);
         }
 
-        /* Simulator & Map Interactive Boxes */
         .interactive-box {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--card-border);
@@ -316,14 +300,14 @@
             border-radius: 12px;
             padding: 1.2rem;
             text-align: center;
-            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .rack-node:hover, .rack-node.active-rack {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: var(--accent-blue);
+        .rack-node.active-route {
+            background: rgba(56, 189, 248, 0.25);
+            border: 2px solid var(--accent-blue);
             transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
         }
 
         .rack-title {
@@ -337,25 +321,14 @@
             border-left: 4px solid var(--accent-green);
             padding: 1rem;
             border-radius: 6px;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
-        /* Quiz UI */
-        .quiz-option {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--card-border);
-            padding: 0.8rem 1.2rem;
-            border-radius: 10px;
-            margin-bottom: 0.6rem;
-            cursor: pointer;
-            transition: background 0.2s;
+        .route-step {
+            margin: 0.5rem 0;
+            font-size: 1.05rem;
         }
 
-        .quiz-option:hover {
-            background: rgba(56, 189, 248, 0.2);
-        }
-
-        /* Search input */
         .search-box {
             width: 100%;
             padding: 0.75rem;
@@ -400,8 +373,6 @@
                 <button class="nav-btn" onclick="switchPage('map', 'page-map', this)">Visual Map</button>
                 <button class="nav-btn" onclick="switchPage('research', 'page-research', this)">Research Data</button>
                 <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Principles</button>
-                <button class="nav-btn" onclick="switchPage('tech', 'page-tech', this)">Architecture</button>
-                <button class="nav-btn" onclick="switchPage('quiz', 'page-quiz', this)">Exhibition Quiz</button>
                 <button class="nav-btn" onclick="switchPage('creators', 'page-creators', this)">Creators & Team</button>
             </div>
         </header>
@@ -411,7 +382,7 @@
             <div class="content-card">
                 <h2 class="section-heading">Welcome to SmartCart</h2>
                 <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent AI-powered shopping companion designed to transform supermarket shopping into an effortless, budget-friendly, and optimized experience.</p>
-                <p>Explore our interactive simulator, store map route planner, hardware architecture, and exhibition quiz using the top navigation bar.</p>
+                <p>Explore our interactive simulator, dynamic store map route planner, and project insights using the top navigation bar.</p>
                 <div class="action-buttons">
                     <div></div>
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">Next: Problem & Objective &rarr;</button>
@@ -423,7 +394,7 @@
         <div id="problem" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Problem Statement & Objective</h2>
-                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific items, tracking real-time cart spending against budgets, and identifying suitable dietary alternatives can be exhausting.</p>
+                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific items, tracking real-time cart spending against budgets, and identifying suitable dietary or budget alternatives can be exhausting.</p>
                 <p style="margin-top: 1.5rem;"><strong>Our Objective:</strong> SmartCart combines automated budget calculation, real-time item dynamic tracking, smart alternative recommendations, and indoor aisle navigation into a seamless interface.</p>
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('home', 'page-home', document.querySelectorAll('.nav-btn')[0])">&larr; Back</button>
@@ -436,17 +407,13 @@
         <div id="demo" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Live SmartCart Simulator</h2>
-                <p>Test the SmartCart budget engine and AI product alternative suggester in real-time:</p>
+                <p>Select items from our inventory of 30+ products to build your cart, monitor live budget calculations, and get AI alternative recommendations:</p>
                 
                 <div class="interactive-box">
                     <div class="sim-input-group">
                         <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500" onchange="checkBudget()">
                         <select id="itemSelect">
-                            <option value="Organic Milk|60|Rack A - Dairy|Regular Milk|42">Organic Milk - ₹60 (Rack A)</option>
-                            <option value="Whole Wheat Bread|45|Rack B - Bakery|Brown Bread|30">Whole Wheat Bread - ₹45 (Rack B)</option>
-                            <option value="Dark Chocolate Bar|160|Rack C - Snacks|Milk Chocolate|70">Dark Chocolate Bar - ₹160 (Rack C)</option>
-                            <option value="Fresh Apples (1kg)|180|Rack D - Produce|Local Apples|110">Fresh Apples (1kg) - ₹180 (Rack D)</option>
-                            <option value="Premium Olive Oil|450|Rack E - Oils|Sunflower Oil|140">Premium Olive Oil - ₹450 (Rack E)</option>
+                            <!-- Populated dynamically via JS -->
                         </select>
                         <button class="action-btn" onclick="addItemToCart()">+ Add Item</button>
                     </div>
@@ -474,19 +441,6 @@
                     </div>
                 </div>
 
-                <!-- Auto Shopping List Generator -->
-                <div class="interactive-box" style="margin-top: 1.5rem;">
-                    <h3 style="color: var(--accent-blue); margin-top:0;">⚡ Auto-Generate Smart Grocery List</h3>
-                    <div class="sim-input-group">
-                        <select id="dietSelect">
-                            <option value="balanced">Balanced Everyday Grocery</option>
-                            <option value="high-protein">High Protein Focus</option>
-                            <option value="budget-saver">Maximum Savings</option>
-                        </select>
-                        <button class="action-btn" onclick="generatePresetList()">Generate List</button>
-                    </div>
-                </div>
-
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">&larr; Back</button>
                     <button class="nav-arrow-btn" onclick="switchPage('map', 'page-map', document.querySelectorAll('.nav-btn')[3])">Next: Visual Map &rarr;</button>
@@ -494,41 +448,45 @@
             </div>
         </div>
 
-        <!-- PAGE 4: VISUAL STORE MAP (NEW FEATURE) -->
+        <!-- PAGE 4: VISUAL STORE MAP -->
         <div id="map" class="page">
             <div class="content-card">
-                <h2 class="section-heading">Interactive Supermarket Navigator</h2>
-                <p>Click on any rack section in the visual grid below to simulate indoor positioning and optimal cart navigation routing:</p>
+                <h2 class="section-heading">Smart Route Optimizer Map</h2>
+                <p>Add items to your cart on the Demo tab, then calculate the optimal path through the supermarket to collect all selected items efficiently.</p>
 
                 <div class="store-grid">
-                    <div class="rack-node" onclick="selectRack('Rack A - Dairy', 'Entrance -> Turn Left -> Straight 10m')">
+                    <div class="rack-node" id="node-Rack A">
                         <div class="rack-title">Rack A</div>
                         <p>Dairy & Eggs</p>
                     </div>
-                    <div class="rack-node" onclick="selectRack('Rack B - Bakery', 'Entrance -> Straight 15m')">
+                    <div class="rack-node" id="node-Rack B">
                         <div class="rack-title">Rack B</div>
-                        <p>Bakery & Bread</p>
+                        <p>Bakery & Staples</p>
                     </div>
-                    <div class="rack-node" onclick="selectRack('Rack C - Snacks', 'Entrance -> Turn Right -> Aisle 2')">
+                    <div class="rack-node" id="node-Rack C">
                         <div class="rack-title">Rack C</div>
-                        <p>Snacks & Drinks</p>
+                        <p>Snacks & Beverages</p>
                     </div>
-                    <div class="rack-node" onclick="selectRack('Rack D - Produce', 'Entrance -> Turn Left -> Back Aisle')">
+                    <div class="rack-node" id="node-Rack D">
                         <div class="rack-title">Rack D</div>
                         <p>Fresh Produce</p>
                     </div>
-                    <div class="rack-node" onclick="selectRack('Rack E - Oils & Spices', 'Entrance -> Center Aisle 3')">
+                    <div class="rack-node" id="node-Rack E">
                         <div class="rack-title">Rack E</div>
-                        <p>Oils & Spices</p>
+                        <p>Oils, Spices & Condiments</p>
                     </div>
-                    <div class="rack-node" onclick="selectRack('Checkout Counters', 'Direct Path to Express Register 4')">
-                        <div class="rack-title">Counter</div>
-                        <p>Smart Checkout</p>
+                    <div class="rack-node" id="node-Rack F">
+                        <div class="rack-title">Rack F</div>
+                        <p>Personal Care & Household</p>
                     </div>
                 </div>
 
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <button class="action-btn" onclick="calculateBestRoute()" style="font-size: 1.1rem; padding: 0.8rem 2rem;">⚡ Calculate Best Route for Selected Cart Items</button>
+                </div>
+
                 <div class="route-info" id="routeDisplay">
-                    <strong>Navigation Directions:</strong> Select a rack above to generate optimal path calculation.
+                    <strong>Navigation Directions:</strong> Add items in the Demo tab and click "Calculate Best Route" to display your path.
                 </div>
 
                 <div class="action-buttons">
@@ -554,7 +512,7 @@
                     <tbody>
                         <tr>
                             <td><strong>70%</strong></td>
-                            <td>Of online shoppers surveyed in India said finding the right product is the most time-consuming step.</td>
+                            <td>Of shoppers surveyed said finding the right product in large store aisles is the most time-consuming step.</td>
                         </tr>
                         <tr>
                             <td><strong>66%</strong></td>
@@ -584,88 +542,29 @@
                 <div class="principles-grid">
                     <div class="principle-item">
                         <h4>Artificial Intelligence</h4>
-                        <p>Drives smart recommendations, evaluating cart content against user-configured limits.</p>
+                        <p>Drives smart recommendations, evaluating cart content against user-configured budget limits.</p>
                     </div>
                     <div class="principle-item">
-                        <h4>Natural Language Processing</h4>
-                        <p>Translates verbal/text query commands into structured inventory database lookup calls.</p>
+                        <h4>Graph Theory & Route Optimization</h4>
+                        <p>Utilizes shortest-path algorithms to calculate the most time-efficient trajectory across store nodes.</p>
                     </div>
                     <div class="principle-item">
                         <h4>Data Processing</h4>
                         <p>Indexes multi-variable datasets including item codes, price points, unit quantities, and rack coordinates.</p>
                     </div>
                     <div class="principle-item">
-                        <h4>Mathematics & Automation</h4>
-                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and path optimization.</p>
+                        <h4>Automated Logic</h4>
+                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and automated alternative suggestions.</p>
                     </div>
                 </div>
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('tech', 'page-tech', document.querySelectorAll('.nav-btn')[6])">Next: Architecture &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[6])">Next: Creators &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 7: TECHNICAL ARCHITECTURE (NEW FEATURE) -->
-        <div id="tech" class="page">
-            <div class="content-card">
-                <h2 class="section-heading">Hardware & Software Architecture</h2>
-                <p>System architecture designed for hardware implementation on smart carts:</p>
-                
-                <div class="tech-grid">
-                    <div class="tech-card">
-                        <h3>Microcontroller Unit</h3>
-                        <p><strong>ESP32 / Raspberry Pi Module:</strong> Handles local telemetry processing, Wi-Fi sync, and sensor inputs.</p>
-                    </div>
-                    <div class="tech-card">
-                        <h3>Weight Sensor Load Cell</h3>
-                        <p><strong>HX711 Load Cell Amplifier:</strong> Verifies added items against expected item weights to prevent checkout discrepancies.</p>
-                    </div>
-                    <div class="tech-card">
-                        <h3>Item Identification</h3>
-                        <p><strong>Barcode Reader / RFID Scanner:</strong> Rapid scanning engine registering items instantly into the cart runtime dataset.</p>
-                    </div>
-                    <div class="tech-card">
-                        <h3>Backend Data Pipeline</h3>
-                        <p><strong>Flask / Local JSON Schema:</strong> Lightweight HTTP microservice processing pricing and shelf coordination telemetry.</p>
-                    </div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('quiz', 'page-quiz', document.querySelectorAll('.nav-btn')[7])">Next: Exhibition Quiz &rarr;</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 8: EXHIBITION QUIZ (NEW FEATURE) -->
-        <div id="quiz" class="page">
-            <div class="content-card">
-                <h2 class="section-heading">Interactive Exhibition Quiz</h2>
-                <p>Test your knowledge on smart shopping technologies!</p>
-
-                <div class="interactive-box" id="quizBox">
-                    <p><strong>Q1: Which technology allows SmartCart to convert voice commands into database queries?</strong></p>
-                    <div class="quiz-option" onclick="answerQuiz(1, true)">Natural Language Processing (NLP)</div>
-                    <div class="quiz-option" onclick="answerQuiz(1, false)">Optical Character Recognition (OCR)</div>
-                    <div class="quiz-option" onclick="answerQuiz(1, false)">GPS Tracking</div>
-
-                    <p style="margin-top: 1.5rem;"><strong>Q2: How does SmartCart prevent budget overrun?</strong></p>
-                    <div class="quiz-option" onclick="answerQuiz(2, false)">By locking the cart wheels</div>
-                    <div class="quiz-option" onclick="answerQuiz(2, true)">By monitoring total cost continuously and suggesting alternatives</div>
-                    <div class="quiz-option" onclick="answerQuiz(2, false)">By removing items automatically</div>
-
-                    <div id="quizResult" style="margin-top: 1.5rem; font-weight: bold; color: var(--accent-green);"></div>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('tech', 'page-tech', document.querySelectorAll('.nav-btn')[6])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[8])">Next: Creators &rarr;</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- PAGE 9: CREATORS & TEAM -->
+        <!-- PAGE 7: CREATORS & TEAM -->
         <div id="creators" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Project Creators & Credits</h2>
@@ -674,20 +573,20 @@
                 <div class="creators-grid">
                     <div class="creator-card">
                         <h3>Ahaan Garg</h3>
-                        <p>Lead developer</p>
+                        <p style="color: var(--accent-green); font-weight: bold;">Lead Developer</p>
                     </div>
                     <div class="creator-card">
                         <h3>Nikith Reddy Kallyam</h3>
-                        <p>Lead analyst</p>
+                        <p style="color: var(--accent-green); font-weight: bold;">Lead Analyst</p>
                     </div>
                     <div class="creator-card">
                         <h3>Reyansh Gosika</h3>
-                        <p>Chief tester</p>
+                        <p style="color: var(--accent-green); font-weight: bold;">Chief Tester</p>
                     </div>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('quiz', 'page-quiz', document.querySelectorAll('.nav-btn')[7])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">&larr; Back</button>
                     <div></div>
                 </div>
             </div>
@@ -699,6 +598,73 @@
     </footer>
 
     <script>
+        // Database of 32 Items
+        const inventory = [
+            { name: "Organic Milk (1L)", price: 60, rack: "Rack A", altName: "Regular Milk", altPrice: 42 },
+            { name: "Greek Yogurt (200g)", price: 80, rack: "Rack A", altName: "Plain Curd", altPrice: 35 },
+            { name: "Cheddar Cheese (200g)", price: 160, rack: "Rack A", altName: "Processed Cheese", altPrice: 110 },
+            { name: "Butter (100g)", price: 58, rack: "Rack A", altName: "Margarine", altPrice: 40 },
+            { name: "Fresh Paneer (200g)", price: 95, rack: "Rack A", altName: "Tofu", altPrice: 60 },
+
+            { name: "Whole Wheat Bread", price: 45, rack: "Rack B", altName: "Brown Bread", altPrice: 30 },
+            { name: "Basmati Rice (1kg)", price: 140, rack: "Rack B", altName: "Sona Masoori Rice", altPrice: 75 },
+            { name: "Rolled Oats (500g)", price: 120, rack: "Rack B", altName: "Instant Oats", altPrice: 85 },
+            { name: "Atta Whole Wheat (5kg)", price: 260, rack: "Rack B", altName: "Standard Wheat Flour", altPrice: 210 },
+            { name: "Multigrain Cookies", price: 85, rack: "Rack B", altName: "Glucose Biscuits", altPrice: 25 },
+
+            { name: "Dark Chocolate Bar", price: 160, rack: "Rack C", altName: "Milk Chocolate", altPrice: 70 },
+            { name: "Roasted Almonds (200g)", price: 240, rack: "Rack C", altName: "Peanuts (200g)", altPrice: 60 },
+            { name: "Orange Juice (1L)", price: 110, rack: "Rack C", altName: "Lemon Squash", altPrice: 50 },
+            { name: "Potato Chips (100g)", price: 40, rack: "Rack C", altName: "Banana Chips", altPrice: 25 },
+            { name: "Green Tea (25 bags)", price: 180, rack: "Rack C", altName: "Black Tea Bags", altPrice: 90 },
+            { name: "Energy Drink (250ml)", price: 125, rack: "Rack C", altName: "Flavored Sparkling Water", altPrice: 45 },
+
+            { name: "Fresh Apples (1kg)", price: 180, rack: "Rack D", altName: "Local Apples", altPrice: 110 },
+            { name: "Organic Bananas (1 Dozen)", price: 70, rack: "Rack D", altName: "Regular Bananas", altPrice: 45 },
+            { name: "Tomatoes (1kg)", price: 40, rack: "Rack D", altName: "Local Tomatoes", altPrice: 25 },
+            { name: "Spinach (Bunch)", price: 30, rack: "Rack D", altName: "Amaranth Leaves", altPrice: 20 },
+            { name: "Carrots (1kg)", price: 60, rack: "Rack D", altName: "Seasonal Carrots", altPrice: 35 },
+
+            { name: "Extra Virgin Olive Oil (500ml)", price: 450, rack: "Rack E", altName: "Sunflower Oil", altPrice: 140 },
+            { name: "Black Pepper (100g)", price: 90, rack: "Rack E", altName: "Ground Black Pepper", altPrice: 55 },
+            { name: "Himalayan Pink Salt (1kg)", price: 110, rack: "Rack E", altName: "Iodized Table Salt", altPrice: 28 },
+            { name: "Organic Honey (250g)", price: 195, rack: "Rack E", altName: "Pure Jaggery", altPrice: 65 },
+            { name: "Soy Sauce (200ml)", price: 85, rack: "Rack E", altName: "Local Soy Sauce", altPrice: 45 },
+
+            { name: "Herbal Shampoo (250ml)", price: 210, rack: "Rack F", altName: "Regular Shampoo", altPrice: 120 },
+            { name: "Hand Wash Refill (500ml)", price: 115, rack: "Rack F", altName: "Bar Soap (3-pack)", altPrice: 60 },
+            { name: "Toothpaste (150g)", price: 95, rack: "Rack F", altName: "Standard Toothpaste", altPrice: 50 },
+            { name: "Microfiber Cleaning Cloth", price: 130, rack: "Rack F", altName: "Cotton Dishcloth", altPrice: 40 },
+            { name: "Dishwashing Gel (500ml)", price: 105, rack: "Rack F", altName: "Dishwashing Bar", altPrice: 30 },
+            { name: "Laundry Detergent (1kg)", price: 180, rack: "Rack F", altName: "Detergent Powder", altPrice: 95 }
+        ];
+
+        let cart = [];
+
+        // 2D Coordinates for Store Map Racks (in meters relative to Entrance at (0,0))
+        const rackCoordinates = {
+            "Entrance": { x: 0, y: 0 },
+            "Rack A": { x: 5, y: 10 },
+            "Rack B": { x: 15, y: 10 },
+            "Rack C": { x: 25, y: 10 },
+            "Rack D": { x: 5, y: 25 },
+            "Rack E": { x: 15, y: 25 },
+            "Rack F": { x: 25, y: 25 },
+            "Checkout": { x: 15, y: 0 }
+        };
+
+        // Populate inventory dropdown
+        function populateInventory() {
+            const select = document.getElementById('itemSelect');
+            select.innerHTML = '';
+            inventory.forEach((item, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.textContent = `${item.name} - ₹${item.price} (${item.rack})`;
+                select.appendChild(opt);
+            });
+        }
+
         function switchPage(pageId, bgClass, btnElement) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
@@ -713,127 +679,167 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* Simulator Script */
-        let cartTotal = 0;
-        let itemCounter = 0;
+        function addItemToCart() {
+            const select = document.getElementById('itemSelect');
+            const itemIdx = select.value;
+            if (itemIdx === "") return;
 
-        function addItemToCart(customName, customPrice, customLoc) {
-            let name, price, location, altName, altPrice;
-
-            if(customName) {
-                name = customName;
-                price = customPrice;
-                location = customLoc;
-            } else {
-                const select = document.getElementById('itemSelect');
-                const val = select.value.split('|');
-                name = val[0];
-                price = parseInt(val[1]);
-                location = val[2];
-                altName = val[3];
-                altPrice = parseInt(val[4]);
-            }
-
-            const tbody = document.getElementById('cartBody');
-            const row = document.createElement('tr');
-            row.className = 'cart-row-item';
-            row.innerHTML = `<td>${name}</td><td>₹${price}</td><td>${location}</td><td><button style="background:#ef4444; color:white; border:none; border-radius:5px; cursor:pointer;" onclick="removeItem(this, ${price})">X</button></td>`;
-            tbody.appendChild(row);
-
-            cartTotal += price;
-            itemCounter++;
-
-            document.getElementById('totalCost').innerText = cartTotal;
-            document.getElementById('totalItems').innerText = itemCounter;
-
-            checkBudget(altName, altPrice);
+            const selectedItem = inventory[itemIdx];
+            cart.push({ ...selectedItem, cartId: Date.now() + Math.random() });
+            updateCartDisplay();
         }
 
-        function removeItem(btn, price) {
-            const row = btn.parentElement.parentElement;
-            row.remove();
-            cartTotal -= price;
-            itemCounter--;
-            document.getElementById('totalCost').innerText = cartTotal;
-            document.getElementById('totalItems').innerText = itemCounter;
+        function removeItem(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCartDisplay();
+        }
+
+        function swapItem(cartId) {
+            const index = cart.findIndex(item => item.cartId === cartId);
+            if (index !== -1) {
+                const current = cart[index];
+                cart[index] = {
+                    ...current,
+                    name: current.altName,
+                    price: current.altPrice,
+                    altName: current.name,
+                    altPrice: current.price
+                };
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const tbody = document.getElementById('cartBody');
+            tbody.innerHTML = '';
+
+            let totalSpent = 0;
+
+            cart.forEach(item => {
+                totalSpent += item.price;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>₹${item.price}</td>
+                    <td>${item.rack}</td>
+                    <td>
+                        <button class="action-btn" style="background:#dc2626; padding:0.3rem 0.6rem; font-size:0.8rem;" onclick="removeItem(${item.cartId})">Remove</button>
+                        <button class="action-btn" style="background:#8b5cf6; padding:0.3rem 0.6rem; font-size:0.8rem; margin-left:4px;" onclick="swapItem(${item.cartId})">Swap Alt (₹${item.altPrice})</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('totalItems').textContent = cart.length;
+            document.getElementById('totalCost').textContent = totalSpent;
+
             checkBudget();
         }
 
-        function checkBudget(altName, altPrice) {
-            const budget = parseInt(document.getElementById('userBudget').value) || 0;
+        function checkBudget() {
+            const budget = parseFloat(document.getElementById('userBudget').value) || 0;
+            const totalSpent = cart.reduce((sum, item) => sum + item.price, 0);
+
             const warning = document.getElementById('budgetWarning');
             const suggestion = document.getElementById('aiSuggestion');
 
-            if(cartTotal > budget) {
+            if (totalSpent > budget && cart.length > 0) {
                 warning.style.display = 'block';
-                if(altName && altPrice) {
-                    suggestion.innerHTML = `💡 <strong>AI Suggestion:</strong> Consider swapping for <em>${altName}</em> (₹${altPrice}) to lower your spending!`;
-                    suggestion.style.display = 'block';
-                }
+                suggestion.style.display = 'block';
             } else {
                 warning.style.display = 'none';
                 suggestion.style.display = 'none';
             }
         }
 
-        function generatePresetList() {
-            const diet = document.getElementById('dietSelect').value;
-            // Clear current cart
-            document.getElementById('cartBody').innerHTML = '';
-            cartTotal = 0;
-            itemCounter = 0;
+        // Calculate Route Using Nearest-Neighbor TSP Algorithm
+        function calculateBestRoute() {
+            // Reset styles on all nodes
+            document.querySelectorAll('.rack-node').forEach(node => node.classList.remove('active-route'));
 
-            if(diet === 'balanced') {
-                addItemToCart('Organic Milk', 60, 'Rack A - Dairy');
-                addItemToCart('Whole Wheat Bread', 45, 'Rack B - Bakery');
-            } else if(diet === 'high-protein') {
-                addItemToCart('Fresh Eggs (12 pcs)', 90, 'Rack A - Dairy');
-                addItemToCart('Greek Yogurt', 120, 'Rack A - Dairy');
-            } else if(diet === 'budget-saver') {
-                addItemToCart('Local Bread', 30, 'Rack B - Bakery');
-                addItemToCart('Standard Milk', 42, 'Rack A - Dairy');
+            const display = document.getElementById('routeDisplay');
+
+            if (cart.length === 0) {
+                display.innerHTML = '<strong>Navigation Directions:</strong> Your cart is empty! Add items in the Demo tab first.';
+                return;
             }
+
+            // Extract unique racks from items in cart
+            const requiredRacks = [...new Set(cart.map(item => item.rack))];
+
+            // Nearest-neighbor route calculation starting from Entrance
+            let current = "Entrance";
+            let unvisited = [...requiredRacks];
+            let route = [current];
+            let totalDistance = 0;
+
+            function getDistance(loc1, loc2) {
+                const p1 = rackCoordinates[loc1];
+                const p2 = rackCoordinates[loc2];
+                return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+            }
+
+            while (unvisited.length > 0) {
+                let nearest = null;
+                let minSubDist = Infinity;
+
+                for (let rack of unvisited) {
+                    let d = getDistance(current, rack);
+                    if (d < minSubDist) {
+                        minSubDist = d;
+                        nearest = rack;
+                    }
+                }
+
+                totalDistance += minSubDist;
+                current = nearest;
+                route.push(current);
+                unvisited = unvisited.filter(r => r !== nearest);
+            }
+
+            // Finish at Checkout
+            totalDistance += getDistance(current, "Checkout");
+            route.push("Checkout");
+
+            // Highlight active racks on map
+            requiredRacks.forEach(rack => {
+                const node = document.getElementById(`node-${rack}`);
+                if (node) node.classList.add('active-route');
+            });
+
+            // Build human-readable path instructions
+            let outputHTML = `<strong>Optimized Route Path (${requiredRacks.length} stops, ~${Math.round(totalDistance)}m walk):</strong><ol style="margin-top:0.5rem; padding-left:1.2rem;">`;
+
+            for (let i = 0; i < route.length - 1; i++) {
+                const from = route[i];
+                const to = route[i+1];
+
+                if (to === "Checkout") {
+                    outputHTML += `<li class="route-step">Proceed from <strong>${from}</strong> &rarr; <strong>Smart Checkout Counters</strong></li>`;
+                } else {
+                    const itemsAtRack = cart.filter(item => item.rack === to).map(item => item.name).join(", ");
+                    outputHTML += `<li class="route-step">Head from <strong>${from}</strong> &rarr; <strong>${to}</strong> (Pick up: <em>${itemsAtRack}</em>)</li>`;
+                }
+            }
+
+            outputHTML += `</ol>`;
+            display.innerHTML = outputHTML;
         }
 
-        /* Map Interactive Script */
-        function selectRack(rackName, directions) {
-            const nodes = document.querySelectorAll('.rack-node');
-            nodes.forEach(n => n.classList.remove('active-rack'));
-            event.currentTarget.classList.add('active-rack');
-
-            document.getElementById('routeDisplay').innerHTML = `<strong>Navigation Directions to [${rackName}]:</strong><br>🗺️ Path: ${directions}`;
-        }
-
-        /* Research Search Filter */
         function filterResearchTable() {
             const input = document.getElementById("researchSearch").value.toUpperCase();
             const tr = document.getElementById("researchTable").getElementsByTagName("tr");
 
             for (let i = 1; i < tr.length; i++) {
-                let tdStat = tr[i].getElementsByTagName("td")[0];
-                let tdDesc = tr[i].getElementsByTagName("td")[1];
-                if (tdStat || tdDesc) {
-                    let txtValueStat = tdStat.textContent || tdStat.innerText;
-                    let txtValueDesc = tdDesc.textContent || tdDesc.innerText;
-                    if (txtValueStat.toUpperCase().indexOf(input) > -1 || txtValueDesc.toUpperCase().indexOf(input) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
+                let text = tr[i].textContent || tr[i].innerText;
+                tr[i].style.display = text.toUpperCase().indexOf(input) > -1 ? "" : "none";
             }
         }
 
-        /* Quiz Logic */
-        let quizScore = 0;
-        function answerQuiz(qNum, isCorrect) {
-            if(isCorrect) {
-                quizScore += 1;
-                document.getElementById('quizResult').innerText = ` Correct answer! Your score: ${quizScore}/2`;
-            } else {
-                document.getElementById('quizResult').innerText = ` Incorrect. Try again! Your score: ${quizScore}/2`;
-            }
-        }
+        // Initialize on load
+        window.onload = function() {
+            populateInventory();
+        };
     </script>
 </body>
 </html>
