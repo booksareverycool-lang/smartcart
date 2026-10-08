@@ -12,6 +12,7 @@
             --text-muted: #cbd5e1;
             --accent-green: #6ee7b7;
             --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
         }
 
         body {
@@ -30,7 +31,7 @@
             flex-direction: column;
         }
 
-        /* Classy page backgrounds with dark fallbacks */
+        /* Dark fallback backgrounds for exhibition venue reliability */
         body.page-home {
             background-color: #0a140f;
             background-image: linear-gradient(rgba(10, 20, 15, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
@@ -43,6 +44,10 @@
             background-color: #0f1d24;
             background-image: linear-gradient(rgba(10, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1920&q=80');
         }
+        body.page-map {
+            background-color: #1b120c;
+            background-image: linear-gradient(rgba(30, 18, 10, 0.8), rgba(15, 15, 25, 0.9)), url('https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=1920&q=80');
+        }
         body.page-research {
             background-color: #0f1923;
             background-image: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
@@ -51,9 +56,13 @@
             background-color: #1e140a;
             background-image: linear-gradient(rgba(30, 20, 10, 0.8), rgba(20, 15, 10, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
         }
-        body.page-process {
+        body.page-tech {
             background-color: #0a1e19;
             background-image: linear-gradient(rgba(10, 30, 25, 0.8), rgba(10, 20, 20, 0.9)), url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-quiz {
+            background-color: #1a0a20;
+            background-image: linear-gradient(rgba(30, 10, 35, 0.8), rgba(15, 10, 25, 0.9)), url('https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1920&q=80');
         }
         body.page-creators {
             background-color: #190a1e;
@@ -66,7 +75,7 @@
 
         .page {
             display: none;
-            max-width: 950px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 2rem 1.5rem 3rem 1.5rem;
             animation: fadeIn 0.5s ease-out;
@@ -103,10 +112,10 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 2rem;
             background: rgba(10, 15, 25, 0.7);
-            padding: 1rem;
+            padding: 0.9rem;
             border-radius: 16px;
             backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
@@ -116,8 +125,8 @@
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-main);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 0.6rem 1.1rem;
-            font-size: 0.95rem;
+            padding: 0.55rem 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             border-radius: 10px;
             cursor: pointer;
@@ -181,14 +190,14 @@
             background: rgba(0,0,0,0.25);
         }
 
-        .principles-grid, .creators-grid {
+        .principles-grid, .creators-grid, .tech-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.2rem;
             margin-top: 1.5rem;
         }
 
-        .principle-item, .creator-card {
+        .principle-item, .creator-card, .tech-card {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--card-border);
             padding: 1.25rem;
@@ -196,12 +205,12 @@
             transition: transform 0.2s ease;
         }
 
-        .principle-item:hover, .creator-card:hover {
+        .principle-item:hover, .creator-card:hover, .tech-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.07);
         }
 
-        .principle-item h4, .creator-card h3 {
+        .principle-item h4, .creator-card h3, .tech-card h3 {
             color: var(--accent-blue);
             margin: 0 0 0.5rem 0;
             font-size: 1.2rem;
@@ -237,11 +246,11 @@
             transform: translateY(-2px);
         }
 
-        /* Demo Interactive Simulator UI */
-        .simulator-box {
+        /* Simulator & Map Interactive Boxes */
+        .interactive-box {
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 1.5rem;
             margin-top: 1.5rem;
         }
@@ -254,7 +263,7 @@
         }
 
         .sim-input-group input, .sim-input-group select {
-            padding: 0.6rem 1rem;
+            padding: 0.65rem 1rem;
             border-radius: 8px;
             border: 1px solid var(--card-border);
             background: rgba(15, 23, 42, 0.9);
@@ -274,14 +283,79 @@
             font-weight: bold;
         }
 
-        .budget-alert {
-            color: #ef4444;
-            font-weight: bold;
-            margin-top: 0.5rem;
+        .alert-box {
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 1rem;
             display: none;
         }
 
-        /* Search input for research */
+        .alert-warning {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+
+        .alert-suggestion {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--accent-purple);
+            color: #e9d5ff;
+        }
+
+        /* Visual Store Map Layout */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .rack-node {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--card-border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rack-node:hover, .rack-node.active-rack {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-blue);
+            transform: scale(1.02);
+        }
+
+        .rack-title {
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .route-info {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        /* Quiz UI */
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--card-border);
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: rgba(56, 189, 248, 0.2);
+        }
+
+        /* Search input */
         .search-box {
             width: 100%;
             padding: 0.75rem;
@@ -323,9 +397,11 @@
                 <button class="nav-btn active" onclick="switchPage('home', 'page-home', this)">Home</button>
                 <button class="nav-btn" onclick="switchPage('problem', 'page-problem', this)">Problem & Objective</button>
                 <button class="nav-btn" onclick="switchPage('demo', 'page-demo', this)">Interactive Demo</button>
+                <button class="nav-btn" onclick="switchPage('map', 'page-map', this)">Visual Map</button>
                 <button class="nav-btn" onclick="switchPage('research', 'page-research', this)">Research Data</button>
-                <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Scientific Principles</button>
-                <button class="nav-btn" onclick="switchPage('process', 'page-process', this)">Process Steps</button>
+                <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Principles</button>
+                <button class="nav-btn" onclick="switchPage('tech', 'page-tech', this)">Architecture</button>
+                <button class="nav-btn" onclick="switchPage('quiz', 'page-quiz', this)">Exhibition Quiz</button>
                 <button class="nav-btn" onclick="switchPage('creators', 'page-creators', this)">Creators & Team</button>
             </div>
         </header>
@@ -334,8 +410,8 @@
         <div id="home" class="page active">
             <div class="content-card">
                 <h2 class="section-heading">Welcome to SmartCart</h2>
-                <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent AI-powered shopping companion designed to transform supermarket shopping into an effortless, budget-friendly, and streamlined experience.</p>
-                <p>Explore our interactive demo, scientific principles, empirical research, and project process using the top navigation bar.</p>
+                <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent AI-powered shopping companion designed to transform supermarket shopping into an effortless, budget-friendly, and optimized experience.</p>
+                <p>Explore our interactive simulator, store map route planner, hardware architecture, and exhibition quiz using the top navigation bar.</p>
                 <div class="action-buttons">
                     <div></div>
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">Next: Problem & Objective &rarr;</button>
@@ -347,8 +423,8 @@
         <div id="problem" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Problem Statement & Objective</h2>
-                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific products, tracking spending against a budget in real-time, comparing unit prices, and managing dietary requirements are frequently tedious and time-consuming.</p>
-                <p style="margin-top: 1.5rem;"><strong>Our Objective:</strong> SmartCart combines automated budget tracking, real-time item dynamic calculation, smart alternative recommendations, and rack location guidance into an intuitive assistant interface.</p>
+                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific items, tracking real-time cart spending against budgets, and identifying suitable dietary alternatives can be exhausting.</p>
+                <p style="margin-top: 1.5rem;"><strong>Our Objective:</strong> SmartCart combines automated budget calculation, real-time item dynamic tracking, smart alternative recommendations, and indoor aisle navigation into a seamless interface.</p>
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('home', 'page-home', document.querySelectorAll('.nav-btn')[0])">&larr; Back</button>
                     <button class="nav-arrow-btn" onclick="switchPage('demo', 'page-demo', document.querySelectorAll('.nav-btn')[2])">Next: Interactive Demo &rarr;</button>
@@ -356,54 +432,113 @@
             </div>
         </div>
 
-        <!-- PAGE 3: INTERACTIVE DEMO (NEW FEATURE) -->
+        <!-- PAGE 3: INTERACTIVE DEMO SIMULATOR -->
         <div id="demo" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Live SmartCart Simulator</h2>
-                <p>Experience how the SmartCart algorithm dynamically computes budget tracking and item placement in real-time:</p>
+                <p>Test the SmartCart budget engine and AI product alternative suggester in real-time:</p>
                 
-                <div class="simulator-box">
+                <div class="interactive-box">
                     <div class="sim-input-group">
-                        <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500">
+                        <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500" onchange="checkBudget()">
                         <select id="itemSelect">
-                            <option value="Organic Milk|60|Aisle 2 - Dairy">Organic Milk - ₹60 (Aisle 2)</option>
-                            <option value="Whole Wheat Bread|45|Aisle 1 - Bakery">Whole Wheat Bread - ₹45 (Aisle 1)</option>
-                            <option value="Dark Chocolate Bar|150|Aisle 4 - Snacks">Dark Chocolate Bar - ₹150 (Aisle 4)</option>
-                            <option value="Fresh Apples (1kg)|180|Aisle 3 - Produce">Fresh Apples (1kg) - ₹180 (Aisle 3)</option>
-                            <option value="Premium Olive Oil|450|Aisle 5 - Oils">Premium Olive Oil - ₹450 (Aisle 5)</option>
+                            <option value="Organic Milk|60|Rack A - Dairy|Regular Milk|42">Organic Milk - ₹60 (Rack A)</option>
+                            <option value="Whole Wheat Bread|45|Rack B - Bakery|Brown Bread|30">Whole Wheat Bread - ₹45 (Rack B)</option>
+                            <option value="Dark Chocolate Bar|160|Rack C - Snacks|Milk Chocolate|70">Dark Chocolate Bar - ₹160 (Rack C)</option>
+                            <option value="Fresh Apples (1kg)|180|Rack D - Produce|Local Apples|110">Fresh Apples (1kg) - ₹180 (Rack D)</option>
+                            <option value="Premium Olive Oil|450|Rack E - Oils|Sunflower Oil|140">Premium Olive Oil - ₹450 (Rack E)</option>
                         </select>
                         <button class="action-btn" onclick="addItemToCart()">+ Add Item</button>
                     </div>
 
-                    <div id="budgetWarning" class="budget-alert">⚠️ Warning: Cart total exceeds set budget! SmartCart suggests cheaper alternatives.</div>
+                    <div id="budgetWarning" class="alert-box alert-warning">⚠️ Warning: Cart total exceeds budget threshold!</div>
+                    <div id="aiSuggestion" class="alert-box alert-suggestion">💡 AI Suggestion: Swap high-cost items with budget-friendly alternatives to remain under limit.</div>
 
                     <table id="cartTable">
                         <thead>
                             <tr>
                                 <th>Item</th>
                                 <th>Price (₹)</th>
-                                <th>Rack / Location</th>
+                                <th>Rack Location</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody id="cartBody">
-                            <!-- Items added dynamically -->
+                            <!-- Dynamically added -->
                         </tbody>
                     </table>
 
                     <div class="cart-status">
-                        <span>Total Items: <span id="totalItems">0</span></span>
-                        <span>Total Spent: ₹<span id="totalCost">0</span></span>
+                        <span>Items: <span id="totalItems">0</span></span>
+                        <span>Spent: ₹<span id="totalCost">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Auto Shopping List Generator -->
+                <div class="interactive-box" style="margin-top: 1.5rem;">
+                    <h3 style="color: var(--accent-blue); margin-top:0;">⚡ Auto-Generate Smart Grocery List</h3>
+                    <div class="sim-input-group">
+                        <select id="dietSelect">
+                            <option value="balanced">Balanced Everyday Grocery</option>
+                            <option value="high-protein">High Protein Focus</option>
+                            <option value="budget-saver">Maximum Savings</option>
+                        </select>
+                        <button class="action-btn" onclick="generatePresetList()">Generate List</button>
                     </div>
                 </div>
 
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">Next: Research Data &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('map', 'page-map', document.querySelectorAll('.nav-btn')[3])">Next: Visual Map &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 4: RESEARCH DATA -->
+        <!-- PAGE 4: VISUAL STORE MAP (NEW FEATURE) -->
+        <div id="map" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Interactive Supermarket Navigator</h2>
+                <p>Click on any rack section in the visual grid below to simulate indoor positioning and optimal cart navigation routing:</p>
+
+                <div class="store-grid">
+                    <div class="rack-node" onclick="selectRack('Rack A - Dairy', 'Entrance -> Turn Left -> Straight 10m')">
+                        <div class="rack-title">Rack A</div>
+                        <p>Dairy & Eggs</p>
+                    </div>
+                    <div class="rack-node" onclick="selectRack('Rack B - Bakery', 'Entrance -> Straight 15m')">
+                        <div class="rack-title">Rack B</div>
+                        <p>Bakery & Bread</p>
+                    </div>
+                    <div class="rack-node" onclick="selectRack('Rack C - Snacks', 'Entrance -> Turn Right -> Aisle 2')">
+                        <div class="rack-title">Rack C</div>
+                        <p>Snacks & Drinks</p>
+                    </div>
+                    <div class="rack-node" onclick="selectRack('Rack D - Produce', 'Entrance -> Turn Left -> Back Aisle')">
+                        <div class="rack-title">Rack D</div>
+                        <p>Fresh Produce</p>
+                    </div>
+                    <div class="rack-node" onclick="selectRack('Rack E - Oils & Spices', 'Entrance -> Center Aisle 3')">
+                        <div class="rack-title">Rack E</div>
+                        <p>Oils & Spices</p>
+                    </div>
+                    <div class="rack-node" onclick="selectRack('Checkout Counters', 'Direct Path to Express Register 4')">
+                        <div class="rack-title">Counter</div>
+                        <p>Smart Checkout</p>
+                    </div>
+                </div>
+
+                <div class="route-info" id="routeDisplay">
+                    <strong>Navigation Directions:</strong> Select a rack above to generate optimal path calculation.
+                </div>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('demo', 'page-demo', document.querySelectorAll('.nav-btn')[2])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[4])">Next: Research Data &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: RESEARCH DATA -->
         <div id="research" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Research & Market Insights</h2>
@@ -419,7 +554,7 @@
                     <tbody>
                         <tr>
                             <td><strong>70%</strong></td>
-                            <td>Of online shoppers surveyed in India said finding the right product/service is the most time-consuming part.</td>
+                            <td>Of online shoppers surveyed in India said finding the right product is the most time-consuming step.</td>
                         </tr>
                         <tr>
                             <td><strong>66%</strong></td>
@@ -436,62 +571,101 @@
                     </tbody>
                 </table>
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('demo', 'page-demo', document.querySelectorAll('.nav-btn')[2])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">Next: Principles &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('map', 'page-map', document.querySelectorAll('.nav-btn')[3])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">Next: Principles &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 5: SCIENTIFIC PRINCIPLES -->
+        <!-- PAGE 6: SCIENTIFIC PRINCIPLES -->
         <div id="principles" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Scientific Principles Used</h2>
                 <div class="principles-grid">
                     <div class="principle-item">
                         <h4>Artificial Intelligence</h4>
-                        <p>Drives smart recommendations, evaluating cart content against customer dietary preferences and constraints.</p>
+                        <p>Drives smart recommendations, evaluating cart content against user-configured limits.</p>
                     </div>
                     <div class="principle-item">
                         <h4>Natural Language Processing</h4>
-                        <p>Translates verbal/text commands like “Find snacks under ₹300” into structured inventory database queries.</p>
+                        <p>Translates verbal/text query commands into structured inventory database lookup calls.</p>
                     </div>
                     <div class="principle-item">
                         <h4>Data Processing</h4>
-                        <p>Indexes multi-variable datasets including item codes, price points, metric quantities, and aisle coordinates.</p>
+                        <p>Indexes multi-variable datasets including item codes, price points, unit quantities, and rack coordinates.</p>
                     </div>
                     <div class="principle-item">
                         <h4>Mathematics & Automation</h4>
-                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and optimal route sequencing.</p>
+                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and path optimization.</p>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('process', 'page-process', document.querySelectorAll('.nav-btn')[5])">Next: Process Steps &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('tech', 'page-tech', document.querySelectorAll('.nav-btn')[6])">Next: Architecture &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 6: PROCESS STEPS -->
-        <div id="process" class="page">
+        <!-- PAGE 7: TECHNICAL ARCHITECTURE (NEW FEATURE) -->
+        <div id="tech" class="page">
             <div class="content-card">
-                <h2 class="section-heading">Execution Steps & Workflow</h2>
-                <ol>
-                    <li>Creates or imports a personalized interactive shopping list.</li>
-                    <li>Scans and checks real-time prices against the store database.</li>
-                    <li>Calculates total running cost dynamically as items enter the cart.</li>
-                    <li>Monitors total cost against user-configured budget limits.</li>
-                    <li>Suggests alternative products if budget thresholds are exceeded.</li>
-                    <li>Provides exact aisle and rack location vectors for item retrieval.</li>
-                    <li>Generates an itemized final summary with automated digital checkout setup.</li>
-                </ol>
+                <h2 class="section-heading">Hardware & Software Architecture</h2>
+                <p>System architecture designed for hardware implementation on smart carts:</p>
+                
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>Microcontroller Unit</h3>
+                        <p><strong>ESP32 / Raspberry Pi Module:</strong> Handles local telemetry processing, Wi-Fi sync, and sensor inputs.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Weight Sensor Load Cell</h3>
+                        <p><strong>HX711 Load Cell Amplifier:</strong> Verifies added items against expected item weights to prevent checkout discrepancies.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Item Identification</h3>
+                        <p><strong>Barcode Reader / RFID Scanner:</strong> Rapid scanning engine registering items instantly into the cart runtime dataset.</p>
+                    </div>
+                    <div class="tech-card">
+                        <h3>Backend Data Pipeline</h3>
+                        <p><strong>Flask / Local JSON Schema:</strong> Lightweight HTTP microservice processing pricing and shelf coordination telemetry.</p>
+                    </div>
+                </div>
+
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[6])">Next: Creators & Team &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('quiz', 'page-quiz', document.querySelectorAll('.nav-btn')[7])">Next: Exhibition Quiz &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 7: CREATORS & TEAM (NEW FEATURE) -->
+        <!-- PAGE 8: EXHIBITION QUIZ (NEW FEATURE) -->
+        <div id="quiz" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Interactive Exhibition Quiz</h2>
+                <p>Test your knowledge on smart shopping technologies!</p>
+
+                <div class="interactive-box" id="quizBox">
+                    <p><strong>Q1: Which technology allows SmartCart to convert voice commands into database queries?</strong></p>
+                    <div class="quiz-option" onclick="answerQuiz(1, true)">Natural Language Processing (NLP)</div>
+                    <div class="quiz-option" onclick="answerQuiz(1, false)">Optical Character Recognition (OCR)</div>
+                    <div class="quiz-option" onclick="answerQuiz(1, false)">GPS Tracking</div>
+
+                    <p style="margin-top: 1.5rem;"><strong>Q2: How does SmartCart prevent budget overrun?</strong></p>
+                    <div class="quiz-option" onclick="answerQuiz(2, false)">By locking the cart wheels</div>
+                    <div class="quiz-option" onclick="answerQuiz(2, true)">By monitoring total cost continuously and suggesting alternatives</div>
+                    <div class="quiz-option" onclick="answerQuiz(2, false)">By removing items automatically</div>
+
+                    <div id="quizResult" style="margin-top: 1.5rem; font-weight: bold; color: var(--accent-green);"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('tech', 'page-tech', document.querySelectorAll('.nav-btn')[6])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[8])">Next: Creators &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 9: CREATORS & TEAM -->
         <div id="creators" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Project Creators & Credits</h2>
@@ -501,11 +675,11 @@
                     <div class="creator-card">
                         <h3>Lead Developer & Designer</h3>
                         <div class="creator-role">Hardware & Software Architecture</div>
-                        <p>Designed the system architecture, algorithm logic, and interactive user interface.</p>
+                        <p>Designed the system architecture, algorithm logic, dynamic dataset schema, and interactive web interface.</p>
                     </div>
                     <div class="creator-card">
                         <h3>Research & Data Lead</h3>
-                        <p>Analyzed market survey metrics, supermarket analytics, and inventory schema structures.</p>
+                        <p>Analyzed consumer market statistics, supermarket analytics, and item classification datasets.</p>
                     </div>
                     <div class="creator-card">
                         <h3>Project Advisor / Mentor</h3>
@@ -514,7 +688,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('process', 'page-process', document.querySelectorAll('.nav-btn')[5])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('quiz', 'page-quiz', document.querySelectorAll('.nav-btn')[7])">&larr; Back</button>
                     <div></div>
                 </div>
             </div>
@@ -544,16 +718,27 @@
         let cartTotal = 0;
         let itemCounter = 0;
 
-        function addItemToCart() {
-            const select = document.getElementById('itemSelect');
-            const val = select.value.split('|');
-            const name = val[0];
-            const price = parseInt(val[1]);
-            const location = val[2];
+        function addItemToCart(customName, customPrice, customLoc) {
+            let name, price, location, altName, altPrice;
+
+            if(customName) {
+                name = customName;
+                price = customPrice;
+                location = customLoc;
+            } else {
+                const select = document.getElementById('itemSelect');
+                const val = select.value.split('|');
+                name = val[0];
+                price = parseInt(val[1]);
+                location = val[2];
+                altName = val[3];
+                altPrice = parseInt(val[4]);
+            }
 
             const tbody = document.getElementById('cartBody');
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${name}</td><td>₹${price}</td><td>${location}</td>`;
+            row.className = 'cart-row-item';
+            row.innerHTML = `<td>${name}</td><td>₹${price}</td><td>${location}</td><td><button style="background:#ef4444; color:white; border:none; border-radius:5px; cursor:pointer;" onclick="removeItem(this, ${price})">X</button></td>`;
             tbody.appendChild(row);
 
             cartTotal += price;
@@ -562,17 +747,62 @@
             document.getElementById('totalCost').innerText = cartTotal;
             document.getElementById('totalItems').innerText = itemCounter;
 
+            checkBudget(altName, altPrice);
+        }
+
+        function removeItem(btn, price) {
+            const row = btn.parentElement.parentElement;
+            row.remove();
+            cartTotal -= price;
+            itemCounter--;
+            document.getElementById('totalCost').innerText = cartTotal;
+            document.getElementById('totalItems').innerText = itemCounter;
             checkBudget();
         }
 
-        function checkBudget() {
+        function checkBudget(altName, altPrice) {
             const budget = parseInt(document.getElementById('userBudget').value) || 0;
             const warning = document.getElementById('budgetWarning');
+            const suggestion = document.getElementById('aiSuggestion');
+
             if(cartTotal > budget) {
                 warning.style.display = 'block';
+                if(altName && altPrice) {
+                    suggestion.innerHTML = `💡 <strong>AI Suggestion:</strong> Consider swapping for <em>${altName}</em> (₹${altPrice}) to lower your spending!`;
+                    suggestion.style.display = 'block';
+                }
             } else {
                 warning.style.display = 'none';
+                suggestion.style.display = 'none';
             }
+        }
+
+        function generatePresetList() {
+            const diet = document.getElementById('dietSelect').value;
+            // Clear current cart
+            document.getElementById('cartBody').innerHTML = '';
+            cartTotal = 0;
+            itemCounter = 0;
+
+            if(diet === 'balanced') {
+                addItemToCart('Organic Milk', 60, 'Rack A - Dairy');
+                addItemToCart('Whole Wheat Bread', 45, 'Rack B - Bakery');
+            } else if(diet === 'high-protein') {
+                addItemToCart('Fresh Eggs (12 pcs)', 90, 'Rack A - Dairy');
+                addItemToCart('Greek Yogurt', 120, 'Rack A - Dairy');
+            } else if(diet === 'budget-saver') {
+                addItemToCart('Local Bread', 30, 'Rack B - Bakery');
+                addItemToCart('Standard Milk', 42, 'Rack A - Dairy');
+            }
+        }
+
+        /* Map Interactive Script */
+        function selectRack(rackName, directions) {
+            const nodes = document.querySelectorAll('.rack-node');
+            nodes.forEach(n => n.classList.remove('active-rack'));
+            event.currentTarget.classList.add('active-rack');
+
+            document.getElementById('routeDisplay').innerHTML = `<strong>Navigation Directions to [${rackName}]:</strong><br>🗺️ Path: ${directions}`;
         }
 
         /* Research Search Filter */
@@ -592,6 +822,17 @@
                         tr[i].style.display = "none";
                     }
                 }
+            }
+        }
+
+        /* Quiz Logic */
+        let quizScore = 0;
+        function answerQuiz(qNum, isCorrect) {
+            if(isCorrect) {
+                quizScore += 1;
+                document.getElementById('quizResult').innerText = ` Correct answer! Your score: ${quizScore}/2`;
+            } else {
+                document.getElementById('quizResult').innerText = ` Incorrect. Try again! Your score: ${quizScore}/2`;
             }
         }
     </script>
