@@ -3,771 +3,821 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCart - Next-Gen Retail Navigation & Automated Checkout</title>
+    <title>SmartCart - AI Shopping Assistant</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #10b981;
-            --dark: #0f172a;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
-            --accent: #f59e0b;
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(255, 255, 255, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent-green: #6ee7b7;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
         }
 
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            cursor: default;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #0f172a;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background 0.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, var(--dark), #1e293b);
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid var(--primary);
+        /* Custom Glowing Follower Cursor */
+        #cursor-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 12px var(--accent-green), 0 0 20px var(--accent-blue);
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out, opacity 0.2s ease-in-out;
         }
 
-        .badge {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        #cursor-ring {
+            width: 36px;
+            height: 36px;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.18s ease-out;
+            opacity: 0.6;
         }
 
-        header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
+        /* Dark fallback backgrounds for exhibition venue reliability */
+        body.page-home {
+            background-color: #0a140f;
+            background-image: linear-gradient(rgba(10, 20, 15, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
         }
-
-        header p {
-            color: #94a3b8;
-            font-size: 1.15rem;
-            max-width: 650px;
-            margin: 0 auto;
+        body.page-problem {
+            background-color: #140f1e;
+            background-image: linear-gradient(rgba(20, 15, 30, 0.8), rgba(15, 15, 30, 0.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');
         }
-
-        .credits {
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            background: rgba(255, 255, 255, 0.05);
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            border-radius: 8px;
+        body.page-demo-map {
+            background-color: #0f1d24;
+            background-image: linear-gradient(rgba(10, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-research {
+            background-color: #0f1923;
+            background-image: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-principles {
+            background-color: #1e140a;
+            background-image: linear-gradient(rgba(30, 20, 10, 0.8), rgba(20, 15, 10, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-creators {
+            background-color: #190a1e;
+            background-image: linear-gradient(rgba(25, 10, 30, 0.8), rgba(15, 10, 20, 0.9)), url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=1920&q=80');
         }
 
         .container {
-            max-width: 1280px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            flex: 1;
         }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .nav-btn {
-            background: white;
-            border: 1px solid var(--border);
-            padding: 0.7rem 1.4rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover, .nav-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .tab-content {
+        .page {
             display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem 1.5rem;
+            animation: fadeIn 0.5s ease-out;
         }
 
-        .tab-content.active {
+        .page.active {
             display: block;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+        header {
+            text-align: center;
+            padding: 2.5rem 1rem 1rem 1rem;
         }
 
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        h1.big-title {
+            font-size: 3.5rem;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(to right, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.6);
+            letter-spacing: -1px;
         }
 
-        .card h3 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
+        .subtitle {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Navigation Menu Buttons */
+        .nav-menu {
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Simulator Layout */
-        .simulator-layout {
-            display: grid;
-            grid-template-columns: 2.2fr 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .simulator-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .filter-bar {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
             flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 2rem;
+            background: rgba(10, 15, 25, 0.7);
+            padding: 0.9rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--card-border);
         }
 
-        .filter-btn {
-            background: #e2e8f0;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.55rem 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-        }
-
-        .filter-btn.active {
-            background: var(--dark);
-            color: white;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-            max-height: 650px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .product-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .product-card h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
-            color: var(--dark);
-        }
-
-        .product-card .brand {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-bottom: 0.4rem;
-        }
-
-        .product-card .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .product-card .price {
-            font-weight: bold;
-            color: var(--secondary);
-            font-size: 1.05rem;
-        }
-
-        .product-card .unit-price {
-            font-size: 0.75rem;
-            color: var(--gray);
-        }
-
-        .product-card .location {
-            font-size: 0.75rem;
-            background: #f1f5f9;
-            padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            margin-bottom: 0.8rem;
-            display: inline-block;
-        }
-
-        .product-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-add {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
+            border-radius: 10px;
             cursor: pointer;
-            flex: 1;
-            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .btn-swap {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0.4rem 0.6rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: bold;
+        .nav-btn:hover, .nav-btn.active {
+            background: linear-gradient(135deg, #059669, #0284c7);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
         }
 
-        .cart-summary {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            height: fit-content;
+        /* Content Card Styling */
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
         }
 
-        .cart-list {
-            list-style: none;
-            margin: 1rem 0;
-            max-height: 350px;
-            overflow-y: auto;
+        h2.section-heading {
+            font-size: 2.2rem;
+            color: var(--accent-green);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.75rem;
         }
 
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.6rem 0;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.88rem;
+        p, li {
+            font-size: 1.1rem;
+            color: var(--text-muted);
         }
 
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+        ul, ol {
+            padding-left: 1.5rem;
         }
 
-        .qty-btn {
-            background: #e2e8f0;
-            border: none;
-            width: 22px;
-            height: 22px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
+        li {
+            margin-bottom: 0.75rem;
         }
 
-        .total-price {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-top: 1rem;
-            display: flex;
-            justify-content: space-between;
-            border-top: 2px dashed var(--border);
-            padding-top: 0.8rem;
-        }
-
-        .btn-checkout {
-            background: var(--secondary);
-            color: white;
-            border: none;
+        table {
             width: 100%;
-            padding: 0.8rem;
-            border-radius: 8px;
-            font-weight: bold;
+            border-collapse: collapse;
             margin-top: 1rem;
-            cursor: pointer;
-            font-size: 1rem;
         }
 
-        .map-container {
-            background: #0f172a;
-            color: white;
-            border-radius: 12px;
-            padding: 1.5rem;
+        th, td {
+            padding: 0.75rem 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.95rem;
         }
 
-        .map-grid {
+        th {
+            color: var(--accent-blue);
+            background: rgba(0,0,0,0.25);
+        }
+
+        .principles-grid, .creators-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
             margin-top: 1.5rem;
         }
 
-        .aisle-node {
-            background: #1e293b;
-            padding: 1.5rem 0.5rem;
-            border-radius: 8px;
-            border: 2px dashed #334155;
-            text-align: center;
+        .principle-item, .creator-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            padding: 1.25rem;
+            border-radius: 14px;
+            transition: transform 0.2s ease;
         }
 
-        .aisle-node.active-route {
-            background: var(--primary);
-            border-color: #60a5fa;
+        .principle-item:hover, .creator-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .principle-item h4, .creator-card h3 {
+            color: var(--accent-blue);
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+
+        .nav-arrow-btn, .action-btn {
+            background: #059669;
             color: white;
-            box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .receipt-view {
-            background: #fff;
-            padding: 1rem;
-            border: 1px dashed #000;
-            font-family: monospace;
+        .nav-arrow-btn:hover, .action-btn:hover {
+            background: #047857;
+            transform: translateY(-2px);
+        }
+
+        .interactive-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .sim-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .sim-input-group input, .sim-input-group select {
+            padding: 0.65rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: rgba(15, 23, 42, 0.9);
+            color: white;
+            font-size: 0.95rem;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .qty-btn {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            width: 26px;
+            height: 26px;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:hover {
+            background: var(--accent-blue);
+            color: black;
+        }
+
+        .cart-status {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .alert-box {
+            padding: 0.8rem;
+            border-radius: 8px;
             margin-top: 1rem;
             display: none;
-            color: #000;
+        }
+
+        .alert-warning {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+
+        .alert-suggestion {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid var(--accent-purple);
+            color: #e9d5ff;
+        }
+
+        /* Layout Grid for Split Demo & Map Tab */
+        .demo-map-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 900px) {
+            .demo-map-grid {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+
+        /* Visual Store Map Layout */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 1rem;
+        }
+
+        .rack-node {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed var(--card-border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .rack-node.active-route {
+            background: rgba(56, 189, 248, 0.25);
+            border: 2px solid var(--accent-blue);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .rack-title {
+            color: var(--accent-green);
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+
+        .route-info {
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1.2rem;
+        }
+
+        .route-step {
+            margin: 0.4rem 0;
+            font-size: 0.95rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+
+        /* Printable Invoice Modal Style */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .invoice-card {
+            background: #ffffff;
+            color: #0f172a;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .invoice-header {
+            text-align: center;
+            border-bottom: 2px dashed #0f172a;
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .invoice-table {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .invoice-table th, .invoice-table td {
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
-            color: var(--gray);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
-            margin-top: 3rem;
+            padding: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            background: rgba(10, 15, 25, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body class="page-home" id="bodyTag">
 
-    <header>
-        <span class="badge">Built for Kautuka 3.0</span>
-        <h1>SmartCart AI Assistant</h1>
-        <p>Next-Gen Retail Navigation, Smart Value Optimization, and Automated Checkout</p>
-        <div class="credits">
-            <strong>Developed by:</strong> Ahaan Garg, Nikith Reddy Kallyam, and Reyansh Gosika
-        </div>
-    </header>
+    <!-- Glowing Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
 
     <div class="container">
-        <nav>
-            <button class="nav-btn active" onclick="switchTab('overview')">Overview & Features</button>
-            <button class="nav-btn" onclick="switchTab('demo')">Interactive Simulator (64 SKUs)</button>
-            <button class="nav-btn" onclick="switchTab('navigation')">Store Route Optimizer</button>
-            <button class="nav-btn" onclick="switchTab('applications')">Expanded Applications</button>
-        </nav>
+        <header>
+            <h1 class="big-title">SmartCart</h1>
+            <div class="subtitle">Next-Gen AI Shopping Assistant & Supermarket Navigation</div>
 
-        <!-- Overview Tab -->
-        <div id="overview" class="tab-content active">
-            <div class="grid">
-                <div class="card">
-                    <h3>⚡ Queue-Busting Automated Checkout</h3>
-                    <p>Shifts checkout overhead directly to the cart. Generates real-time digital receipts with tax breakdown and mobile payment integration to eliminate register lines.</p>
-                </div>
-                <div class="card">
-                    <h3>🗺️ Shortest-Path Route Optimization</h3>
-                    <p>Uses coordinate matrix spatial indexing (Aisle/Rack/Shelf) and pathfinding logic to route shoppers efficiently through supermarket layouts.</p>
-                </div>
-                <div class="card">
-                    <h3>🏷️ Unit Price Value Engine</h3>
-                    <p>Compares name-brand products against generic alternatives on a normalized per-unit metric basis (price per 100g/mL), allowing instant smart cost swaps.</p>
-                </div>
-                <div class="card">
-                    <h3>📊 64-SKU Synthetic Dataset</h3>
-                    <p>Built upon a structured, metric-enabled catalog featuring generic and brand-name alternatives, spatial coordinates, and price matrices.</p>
+            <!-- Navigation Buttons -->
+            <div class="nav-menu">
+                <button class="nav-btn active" onclick="switchPage('home', 'page-home', this)">Home</button>
+                <button class="nav-btn" onclick="switchPage('problem', 'page-problem', this)">Problem & Objective</button>
+                <button class="nav-btn" onclick="switchPage('demo-map', 'page-demo-map', this)">Interactive Demo & Map</button>
+                <button class="nav-btn" onclick="switchPage('research', 'page-research', this)">Research Data</button>
+                <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Principles</button>
+                <button class="nav-btn" onclick="switchPage('creators', 'page-creators', this)">Creators & Team</button>
+            </div>
+        </header>
+
+        <!-- PAGE 1: HOME -->
+        <div id="home" class="page active">
+            <div class="content-card">
+                <h2 class="section-heading">Welcome to SmartCart</h2>
+                <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent AI-powered shopping companion designed to transform supermarket shopping into an effortless, budget-friendly, and optimized experience.</p>
+                <p>Explore our combined live interactive simulator, store map route planner, and project insights using the top navigation bar.</p>
+                <div class="action-buttons">
+                    <div></div>
+                    <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">Next: Problem & Objective &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- Interactive Simulator Tab -->
-        <div id="demo" class="tab-content">
-            <div class="simulator-layout">
-                <div>
-                    <h2>Interactive Product Catalog</h2>
-                    <p style="color: var(--gray); margin-bottom: 0.8rem;">Browse items or swap brand-names with generic alternatives to save cost.</p>
-                    
-                    <div class="filter-bar">
-                        <button class="filter-btn active" onclick="filterCatalog('All')">All (64)</button>
-                        <button class="filter-btn" onclick="filterCatalog('A1')">Aisle 1 (Produce/Bakery)</button>
-                        <button class="filter-btn" onclick="filterCatalog('A2')">Aisle 2 (Dairy/Chilled)</button>
-                        <button class="filter-btn" onclick="filterCatalog('A3')">Aisle 3 (Pantry/Grains)</button>
-                        <button class="filter-btn" onclick="filterCatalog('A4')">Aisle 4 (Beverages/Snacks)</button>
-                    </div>
-
-                    <div class="product-grid" id="catalog">
-                        <!-- Populated dynamically with 64 Items -->
-                    </div>
-                </div>
-
-                <div class="cart-summary">
-                    <h2>Live SmartCart</h2>
-                    <ul class="cart-list" id="cart-items">
-                        <li style="color: var(--gray); text-align: center; padding: 1rem 0;">Cart is empty</li>
-                    </ul>
-                    <div class="total-price">
-                        <span>Total:</span>
-                        <span id="total-amount">$0.00</span>
-                    </div>
-                    <button class="btn-checkout" onclick="generateReceipt()">Generate Digital Invoice</button>
-
-                    <div id="receipt" class="receipt-view">
-                        <p style="text-align: center;"><strong>=== SMARTCART INVOICE ===</strong></p>
-                        <p style="text-align: center;">Built for Kautuka 3.0</p>
-                        <p style="text-align: center; font-size: 0.75rem;" id="receipt-date"></p>
-                        <hr style="margin: 0.5rem 0;">
-                        <div id="receipt-details"></div>
-                        <hr style="margin: 0.5rem 0;">
-                        <p style="text-align: center;">Thank you for shopping!</p>
-                    </div>
+        <!-- PAGE 2: PROBLEM & OBJECTIVE -->
+        <div id="problem" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Problem Statement & Objective</h2>
+                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific items, tracking real-time cart spending against budgets, and identifying suitable dietary or budget alternatives can be exhausting.</p>
+                <p style="margin-top: 1.5rem;"><strong>Our Objective:</strong> SmartCart combines automated budget calculation, real-time item dynamic tracking, smart alternative recommendations, and indoor aisle navigation into a seamless interface.</p>
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('home', 'page-home', document.querySelectorAll('.nav-btn')[0])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">Next: Interactive Demo & Map &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- Store Route Optimizer Tab -->
-        <div id="navigation" class="tab-content">
-            <div class="map-container">
-                <h2 style="text-align: center;">Nearest-Neighbor Path Optimization Map</h2>
-                <p style="text-align: center; color: #94a3b8; margin-bottom: 1rem;">Calculated spatial matrix routing based on active cart selections</p>
-                <div class="map-grid">
-                    <div class="aisle-node" id="node-A1">
-                        <h4>Aisle 1</h4>
-                        <p style="font-size: 0.8rem; color: #94a3b8;">Produce & Bakery</p>
+        <!-- PAGE 3: UNIFIED INTERACTIVE DEMO & MAP -->
+        <div id="demo-map" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Interactive Simulator & Live Store Map</h2>
+                
+                <div class="demo-map-grid">
+                    <!-- LEFT SIDE: CART SIMULATOR -->
+                    <div>
+                        <h3 style="color: var(--accent-blue); margin-top:0;">1. Build Your Shopping Cart</h3>
+                        
+                        <div class="interactive-box">
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="font-size:0.85rem; color: var(--accent-green); font-weight:bold;">SEARCH & SELECT FROM CATALOG (64 ITEMS):</label>
+                                <input type="text" id="inventorySearch" class="search-box" style="margin-top:0.4rem; margin-bottom:0.6rem;" placeholder="🔍 Search items by name or rack..." onkeyup="filterInventoryDropdown()">
+                                
+                                <select id="itemSelect" style="width:100%; padding:0.65rem; border-radius:8px; border:1px solid var(--card-border); background:rgba(15, 23, 42, 0.9); color:white; font-size:0.95rem;">
+                                    <!-- Populated dynamically via JS -->
+                                </select>
+                            </div>
+
+                            <div class="sim-input-group">
+                                <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500" onchange="checkBudget()">
+                                <button class="action-btn" onclick="addItemToCart()">+ Add Item</button>
+                            </div>
+
+                            <div id="budgetWarning" class="alert-box alert-warning">⚠️ Warning: Cart total exceeds budget threshold!</div>
+                            <div id="aiSuggestion" class="alert-box alert-suggestion">💡 AI Suggestion: Swap high-cost items with budget-friendly alternatives to remain under limit.</div>
+
+                            <table id="cartTable">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cartBody">
+                                    <!-- Dynamically added -->
+                                </tbody>
+                            </table>
+
+                            <div class="cart-status">
+                                <span>Items: <span id="totalItems">0</span></span>
+                                <span>Spent: ₹<span id="totalCost">0</span></span>
+                            </div>
+
+                            <button class="action-btn" onclick="generateInvoice()" style="width: 100%; margin-top: 1rem; background: linear-gradient(135deg, #8b5cf6, #0284c7);">📄 Generate Invoice / Receipt</button>
+                        </div>
                     </div>
-                    <div class="aisle-node" id="node-A2">
-                        <h4>Aisle 2</h4>
-                        <p style="font-size: 0.8rem; color: #94a3b8;">Dairy & Refrigerated</p>
-                    </div>
-                    <div class="aisle-node" id="node-A3">
-                        <h4>Aisle 3</h4>
-                        <p style="font-size: 0.8rem; color: #94a3b8;">Pantry, Grains & Spices</p>
-                    </div>
-                    <div class="aisle-node" id="node-A4">
-                        <h4>Aisle 4</h4>
-                        <p style="font-size: 0.8rem; color: #94a3b8;">Beverages & Snacks</p>
+
+                    <!-- RIGHT SIDE: LIVE MAP & ROUTE OPTIMIZER -->
+                    <div>
+                        <h3 style="color: var(--accent-blue); margin-top:0;">2. Indoor Route Optimizer</h3>
+                        
+                        <div class="store-grid">
+                            <div class="rack-node" id="node-Rack A">
+                                <div class="rack-title">Rack A</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Dairy & Eggs</p>
+                            </div>
+                            <div class="rack-node" id="node-Rack B">
+                                <div class="rack-title">Rack B</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Bakery & Staples</p>
+                            </div>
+                            <div class="rack-node" id="node-Rack C">
+                                <div class="rack-title">Rack C</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Snacks & Drinks</p>
+                            </div>
+                            <div class="rack-node" id="node-Rack D">
+                                <div class="rack-title">Rack D</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Fresh Produce</p>
+                            </div>
+                            <div class="rack-node" id="node-Rack E">
+                                <div class="rack-title">Rack E</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Oils & Spices</p>
+                            </div>
+                            <div class="rack-node" id="node-Rack F">
+                                <div class="rack-title">Rack F</div>
+                                <p style="font-size:0.85rem; margin:0.3rem 0 0 0;">Household Care</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 1.2rem;">
+                            <button class="action-btn" onclick="calculateBestRoute()" style="width: 100%;">⚡ Recalculate Route Path</button>
+                        </div>
+
+                        <div class="route-info" id="routeDisplay">
+                            <strong>Navigation Directions:</strong> Add items to your cart to generate your dynamic store path.
+                        </div>
                     </div>
                 </div>
-                <div style="margin-top: 2rem; background: #1e293b; padding: 1rem; border-radius: 8px;">
-                    <h4>Optimized Shopping Sequence:</h4>
-                    <p id="route-sequence" style="color: #60a5fa; font-weight: bold; margin-top: 0.5rem;">No items selected in cart.</p>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">Next: Research Data &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- Expanded Applications Tab -->
-        <div id="applications" class="tab-content">
-            <div class="grid">
-                <div class="card">
-                    <h3>👤 Consumer Experience</h3>
-                    <ul>
-                        <li>Precision shelf-height indoor positioning</li>
-                        <li>Automated dietary and allergen filter warnings</li>
-                        <li>Live budget constraint tracking</li>
-                    </ul>
+        <!-- PAGE 4: RESEARCH DATA -->
+        <div id="research" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Research & Market Insights</h2>
+                <input type="text" id="researchSearch" class="search-box" onkeyup="filterResearchTable()" placeholder="Search statistics or sources...">
+                
+                <table id="researchTable">
+                    <thead>
+                        <tr>
+                            <th>Statistic</th>
+                            <th>Insight / Survey Source</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>70%</strong></td>
+                            <td>Of shoppers surveyed said finding the right product in large store aisles is the most time-consuming step.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>66%</strong></td>
+                            <td>Of Indian consumers in a PwC survey use smartphones to research prices, offers, and availability before buying.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>62%</strong></td>
+                            <td>Visit physical stores for product discovery, while 65% use search engines to research products.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>40%</strong></td>
+                            <td>Of surveyed Indian shoppers switch stores for better deals, according to NielsenIQ grocery research.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">Next: Principles &rarr;</button>
                 </div>
-                <div class="card">
-                    <h3>🏢 Store Operations</h3>
-                    <ul>
-                        <li>Drastic reduction in front-end checkout counter footprint</li>
-                        <li>Real-time customer aisle traffic heatmap gathering</li>
-                        <li>Dynamic Electronic Shelf Label (ESL) price sync</li>
-                    </ul>
+            </div>
+        </div>
+
+        <!-- PAGE 5: SCIENTIFIC PRINCIPLES -->
+        <div id="principles" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Scientific Principles Used</h2>
+                <div class="principles-grid">
+                    <div class="principle-item">
+                        <h4>Artificial Intelligence</h4>
+                        <p>Drives smart recommendations, evaluating cart content against user-configured budget limits.</p>
+                    </div>
+                    <div class="principle-item">
+                        <h4>Graph Theory & Route Optimization</h4>
+                        <p>Utilizes shortest-path algorithms to calculate the most time-efficient trajectory across store nodes.</p>
+                    </div>
+                    <div class="principle-item">
+                        <h4>Data Processing</h4>
+                        <p>Indexes multi-variable datasets including item codes, price points, unit quantities, and rack coordinates.</p>
+                    </div>
+                    <div class="principle-item">
+                        <h4>Automated Logic</h4>
+                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and automated alternative suggestions.</p>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>📦 Supply Chain Integration</h3>
-                    <ul>
-                        <li>Automated shelf-depletion restock triggering</li>
-                        <li>Misplaced item shelf audit tracking</li>
-                        <li>Shrinkage and loss prevention monitoring</li>
-                    </ul>
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[5])">Next: Creators &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 6: CREATORS & TEAM -->
+        <div id="creators" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Project Creators & Credits</h2>
+                <p>This project was conceptualized and developed for the Science Exhibition.</p>
+                
+                <div class="creators-grid">
+                    <div class="creator-card">
+                        <h3>Ahaan Garg</h3>
+                        <p style="color: var(--accent-green); font-weight: bold;">Lead Developer</p>
+                    </div>
+                    <div class="creator-card">
+                        <h3>Nikith Reddy Kallyam</h3>
+                        <p style="color: var(--accent-green); font-weight: bold;">Lead Analyst</p>
+                    </div>
+                    <div class="creator-card">
+                        <h3>Reyansh Gosika</h3>
+                        <p style="color: var(--accent-green); font-weight: bold;">Chief Tester</p>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
+                    <div></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- INVOICE MODAL -->
+    <div id="invoiceModal" class="modal-overlay">
+        <div class="invoice-card">
+            <div class="invoice-header">
+                <h2 style="margin:0;">SMARTCART SUPERMARKET</h2>
+                <p style="margin:4px 0; font-size:0.8rem;">AI-Guided Express Checkout</p>
+                <p style="margin:0; font-size:0.75rem;" id="invoiceDate"></p>
+            </div>
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Item</th>
+                        <th style="text-align:center;">Qty</th>
+                        <th style="text-align:right;">Amt (₹)</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceItems">
+                    <!-- Populated via JS -->
+                </tbody>
+            </table>
+            <div style="border-top:1px dashed #0f172a; padding-top:0.5rem; font-size:0.85rem;">
+                <div style="display:flex; justify-content:space-between;">
+                    <span>Subtotal:</span>
+                    <span>₹<span id="invSubtotal">0</span></span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>GST Tax (5%):</span>
+                    <span>₹<span id="invTax">0</span></span>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.05rem; margin-top:0.4rem; border-top:1px solid #0f172a; padding-top:0.4rem;">
+                    <span>TOTAL PAID:</span>
+                    <span>₹<span id="invTotal">0</span></span>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top:1.5rem; display:flex; gap:8px;">
+                <button onclick="window.print()" style="flex:1; padding:0.6rem; background:#0f172a; color:white; border:none; border-radius:6px; cursor:pointer; font-weight:bold;">Print Receipt</button>
+                <button onclick="closeInvoice()" style="flex:1; padding:0.6rem; background:#cbd5e1; color:#0f172a; border:none; border-radius:6px; cursor:pointer; font-weight:bold;">Close</button>
+            </div>
+        </div>
+    </div>
+
     <footer>
-        SmartCart Project Presentation &bull; Built for Kautuka 3.0 &bull; Developed by Ahaan Garg, Nikith Reddy Kallyam, and Reyansh Gosika
+        <p>&copy; 2026 SmartCart Team | Built for Kautuka 3.0</p>
     </footer>
 
     <script>
-        // Full 64 SKU Dataset
-        let products = [
-            // Aisle 1 - Produce & Bakery
-            { id: 1, name: "Gala Apples 1kg", brand: "Fresh Select", price: 3.99, unitPrice: "$0.40/100g", aisle: "A1", location: "A1-R01-S1", genericName: "Value Apples 1kg", genericPrice: 2.49 },
-            { id: 2, name: "Organic Bananas 1kg", brand: "BioFresh", price: 2.49, unitPrice: "$0.25/100g", aisle: "A1", location: "A1-R01-S2", genericName: "Bananas 1kg", genericPrice: 1.79 },
-            { id: 3, name: "Whole Wheat Bread 500g", brand: "Bakers Choice", price: 2.99, unitPrice: "$0.60/100g", aisle: "A1", location: "A1-R02-S1", genericName: "Store Wheat Bread 500g", genericPrice: 1.89 },
-            { id: 4, name: "Artisanal Sourdough", brand: "Gourmet Bakery", price: 4.50, unitPrice: "$0.90/100g", aisle: "A1", location: "A1-R02-S2", genericName: "Classic Sourdough", genericPrice: 3.10 },
-            { id: 5, name: "Baby Spinach 250g", brand: "Green Leaf", price: 3.20, unitPrice: "$1.28/100g", aisle: "A1", location: "A1-R03-S1", genericName: "Fresh Spinach 250g", genericPrice: 2.10 },
-            { id: 6, name: "Cherry Tomatoes 400g", brand: "SunRipe", price: 2.80, unitPrice: "$0.70/100g", aisle: "A1", location: "A1-R03-S2", genericName: "Value Tomatoes 400g", genericPrice: 1.95 },
-            { id: 7, name: "Avocados (3 Pack)", brand: "Tropic Harvest", price: 4.99, unitPrice: "$1.66/ea", aisle: "A1", location: "A1-R04-S1", genericName: "Standard Avocados 3pk", genericPrice: 3.49 },
-            { id: 8, name: "Brioche Buns 4pk", brand: "Bakers Choice", price: 3.50, unitPrice: "$0.87/ea", aisle: "A1", location: "A1-R02-S3", genericName: "Value Buns 4pk", genericPrice: 2.20 },
-            { id: 9, name: "Navel Oranges 1.5kg", brand: "Citrus Grove", price: 4.20, unitPrice: "$0.28/100g", aisle: "A1", location: "A1-R01-S3", genericName: "Oranges Net 1.5kg", genericPrice: 3.00 },
-            { id: 10, name: "Strawberries 250g", brand: "Berry Best", price: 3.99, unitPrice: "$1.60/100g", aisle: "A1", location: "A1-R05-S1", genericName: "Fresh Strawberries 250g", genericPrice: 2.80 },
-            { id: 11, name: "Blueberries 125g", brand: "Berry Best", price: 4.49, unitPrice: "$3.59/100g", aisle: "A1", location: "A1-R05-S2", genericName: "Value Blueberries 125g", genericPrice: 3.10 },
-            { id: 12, name: "Carrots 1kg", brand: "Farm Pick", price: 1.50, unitPrice: "$0.15/100g", aisle: "A1", location: "A1-R06-S1", genericName: "Basic Carrots 1kg", genericPrice: 0.99 },
-            { id: 13, name: "Russet Potatoes 2.5kg", brand: "Farm Pick", price: 4.80, unitPrice: "$0.19/100g", aisle: "A1", location: "A1-R06-S2", genericName: "Potatoes Bag 2.5kg", genericPrice: 3.20 },
-            { id: 14, name: "Red Onions 1kg", brand: "Farm Pick", price: 2.20, unitPrice: "$0.22/100g", aisle: "A1", location: "A1-R06-S3", genericName: "Onions Net 1kg", genericPrice: 1.40 },
-            { id: 15, name: "Croissants 4pk", brand: "Gourmet Bakery", price: 4.99, unitPrice: "$1.25/ea", aisle: "A1", location: "A1-R02-S4", genericName: "Butter Croissants 4pk", genericPrice: 3.20 },
-            { id: 16, name: "Bagels 6pk", brand: "Bakers Choice", price: 3.80, unitPrice: "$0.63/ea", aisle: "A1", location: "A1-R02-S5", genericName: "Plain Bagels 6pk", genericPrice: 2.50 },
+        // Database of 64 distinct items (Pairs of primary items and budget/alt counterparts)
+        const inventory = [
+            { id: 1, name: "Organic Milk (1L)", price: 60, rack: "Rack A", altName: "Regular Milk", altPrice: 42 },
+            { id: 2, name: "Regular Milk (1L)", price: 42, rack: "Rack A", altName: "Organic Milk", altPrice: 60 },
+            { id: 3, name: "Greek Yogurt (200g)", price: 80, rack: "Rack A", altName: "Plain Curd", altPrice: 35 },
+            { id: 4, name: "Plain Curd (200g)", price: 35, rack: "Rack A", altName: "Greek Yogurt", altPrice: 80 },
+            { id: 5, name: "Cheddar Cheese (200g)", price: 160, rack: "Rack A", altName: "Processed Cheese", altPrice: 110 },
+            { id: 6, name: "Processed Cheese (200g)", price: 110, rack: "Rack A", altName: "Cheddar Cheese", altPrice: 160 },
+            { id: 7, name: "Butter (100g)", price: 58, rack: "Rack A", altName: "Margarine", altPrice: 40 },
+            { id: 8, name: "Margarine (100g)", price: 40, rack: "Rack A", altName: "Butter", altPrice: 58 },
+            { id: 9, name: "Fresh Paneer (200g)", price: 95, rack: "Rack A", altName: "Tofu", altPrice: 60 },
+            { id: 10, name: "Tofu (200g)", price: 60, rack: "Rack A", altName: "Fresh Paneer", altPrice: 95 },
 
-            // Aisle 2 - Dairy & Refrigerated
-            { id: 17, name: "Whole Milk 2L", brand: "Dairy Pure", price: 3.89, unitPrice: "$0.19/100mL", aisle: "A2", location: "A2-R01-S1", genericName: "Store Milk 2L", genericPrice: 2.69 },
-            { id: 18, name: "Greek Yogurt 500g", brand: "Oikos Gold", price: 4.49, unitPrice: "$0.90/100g", aisle: "A2", location: "A2-R02-S1", genericName: "Plain Greek Yogurt 500g", genericPrice: 2.99 },
-            { id: 19, name: "Cheddar Block 400g", brand: "Dairy Pure", price: 5.20, unitPrice: "$1.30/100g", aisle: "A2", location: "A2-R03-S1", genericName: "Value Cheddar 400g", genericPrice: 3.75 },
-            { id: 20, name: "Salted Butter 250g", brand: "Golden Cream", price: 3.60, unitPrice: "$1.44/100g", aisle: "A2", location: "A2-R01-S2", genericName: "Basic Butter 250g", genericPrice: 2.40 },
-            { id: 21, name: "Almond Milk 1L", brand: "NutriSilk", price: 3.99, unitPrice: "$0.40/100mL", aisle: "A2", location: "A2-R01-S3", genericName: "Value Almond Milk 1L", genericPrice: 2.30 },
-            { id: 22, name: "Large Eggs 12pk", brand: "Farm Fresh", price: 4.20, unitPrice: "$0.35/ea", aisle: "A2", location: "A2-R04-S1", genericName: "Grade A Eggs 12pk", genericPrice: 2.99 },
-            { id: 23, name: "Mozzarella Shredded 300g", brand: "Dairy Pure", price: 4.80, unitPrice: "$1.60/100g", aisle: "A2", location: "A2-R03-S2", genericName: "Shredded Mozzarella 300g", genericPrice: 3.20 },
-            { id: 24, name: "Sour Cream 300g", brand: "Golden Cream", price: 2.50, unitPrice: "$0.83/100g", aisle: "A2", location: "A2-R02-S2", genericName: "Value Sour Cream 300g", genericPrice: 1.70 },
-            { id: 25, name: "Oat Milk 1L", brand: "NutriSilk", price: 4.20, unitPrice: "$0.42/100mL", aisle: "A2", location: "A2-R01-S4", genericName: "Plain Oat Milk 1L", genericPrice: 2.80 },
-            { id: 26, name: "Cottage Cheese 400g", brand: "Dairy Pure", price: 3.20, unitPrice: "$0.80/100g", aisle: "A2", location: "A2-R02-S3", genericName: "Value Cottage Cheese 400g", genericPrice: 2.10 },
-            { id: 27, name: "Parmesan Wedge 200g", brand: "Italia Select", price: 6.50, unitPrice: "$3.25/100g", aisle: "A2", location: "A2-R03-S3", genericName: "Hard Parmesan 200g", genericPrice: 4.20 },
-            { id: 28, name: "Orange Juice 1.5L", brand: "SunRipe", price: 4.80, unitPrice: "$0.32/100mL", aisle: "A2", location: "A2-R05-S1", genericName: "100% OJ 1.5L", genericPrice: 3.10 },
-            { id: 29, name: "Tofu Firm 350g", brand: "Soy Good", price: 2.99, unitPrice: "$0.85/100g", aisle: "A2", location: "A2-R06-S1", genericName: "Organic Tofu 350g", genericPrice: 1.99 },
-            { id: 30, name: "Hummus Dip 200g", brand: "MedBites", price: 3.50, unitPrice: "$1.75/100g", aisle: "A2", location: "A2-R06-S2", genericName: "Classic Hummus 200g", genericPrice: 2.20 },
-            { id: 31, name: "Cream Cheese 250g", brand: "Golden Cream", price: 3.40, unitPrice: "$1.36/100g", aisle: "A2", location: "A2-R02-S4", genericName: "Value Cream Cheese 250g", genericPrice: 2.10 },
-            { id: 32, name: "Heavy Cream 400mL", brand: "Dairy Pure", price: 3.90, unitPrice: "$0.98/100mL", aisle: "A2", location: "A2-R01-S5", genericName: "Whipping Cream 400mL", genericPrice: 2.60 },
+            { id: 11, name: "Whole Wheat Bread", price: 45, rack: "Rack B", altName: "Brown Bread", altPrice: 30 },
+            { id: 12, name: "Brown Bread", price: 30, rack: "Rack B", altName: "Whole Wheat Bread", altPrice: 45 },
+            { id: 13, name: "Basmati Rice (1kg)", price: 140, rack: "Rack B", altName: "Sona Masoori Rice", altPrice: 75 },
+            { id: 14, name: "Sona Masoori Rice (1kg)", price: 75, rack: "Rack B", altName: "Basmati Rice", altPrice: 140 },
+            { id: 15, name: "Rolled Oats (500g)", price: 120, rack: "Rack B", altName: "Instant Oats", altPrice: 85 },
+            { id: 16, name: "Instant Oats (500g)", price: 85, rack: "Rack B", altName: "Rolled Oats", altPrice: 120 },
+            { id: 17, name: "Atta Whole Wheat (5kg)", price: 260, rack: "Rack B", altName: "Standard Wheat Flour", altPrice: 210 },
+            { id: 18, name: "Standard Wheat Flour (5kg)", price: 210, rack: "Rack B", altName: "Atta Whole Wheat", altPrice: 260 },
+            { id: 19, name: "Multigrain Cookies", price: 85, rack: "Rack B", altName: "Glucose Biscuits", altPrice: 25 },
+            { id: 20, name: "Glucose Biscuits", price: 25, rack: "Rack B", altName: "Multigrain Cookies", altPrice: 85 },
 
-            // Aisle 3 - Pantry, Grains & Spices
-            { id: 33, name: "Basmati Rice 5kg", brand: "Royal Harvest", price: 14.99, unitPrice: "$0.30/100g", aisle: "A3", location: "A3-R01-S1", genericName: "Long Grain Rice 5kg", genericPrice: 9.99 },
-            { id: 34, name: "Spaghetti Pasta 500g", brand: "Italia Select", price: 2.20, unitPrice: "$0.44/100g", aisle: "A3", location: "A3-R02-S1", genericName: "Value Spaghetti 500g", genericPrice: 1.10 },
-            { id: 35, name: "Olive Oil Extra Virgin 1L", brand: "Italia Select", price: 12.50, unitPrice: "$1.25/100mL", aisle: "A3", location: "A3-R03-S1", genericName: "Pure Olive Oil 1L", genericPrice: 8.20 },
-            { id: 36, name: "Canned Black Beans 400g", brand: "Pantry Basic", price: 1.40, unitPrice: "$0.35/100g", aisle: "A3", location: "A3-R04-S1", genericName: "Value Beans 400g", genericPrice: 0.85 },
-            { id: 37, name: "Peanut Butter 500g", brand: "Nutty Feast", price: 4.50, unitPrice: "$0.90/100g", aisle: "A3", location: "A3-R05-S1", genericName: "Smooth Peanut Butter 500g", genericPrice: 2.90 },
-            { id: 38, name: "Rolled Oats 1kg", brand: "Morning Grain", price: 3.80, unitPrice: "$0.38/100g", aisle: "A3", location: "A3-R01-S2", genericName: "Quick Oats 1kg", genericPrice: 2.20 },
-            { id: 39, name: "Tomato Sauce 680g", brand: "Italia Select", price: 3.20, unitPrice: "$0.47/100g", aisle: "A3", location: "A3-R02-S2", genericName: "Pasta Sauce 680g", genericPrice: 1.80 },
-            { id: 40, name: "Quinoa 500g", brand: "Royal Harvest", price: 5.99, unitPrice: "$1.20/100g", aisle: "A3", location: "A3-R01-S3", genericName: "White Quinoa 500g", genericPrice: 3.80 },
-            { id: 41, name: "All-Purpose Flour 2kg", brand: "Bakers Choice", price: 3.50, unitPrice: "$0.18/100g", aisle: "A3", location: "A3-R06-S1", genericName: "Plain Flour 2kg", genericPrice: 2.10 },
-            { id: 42, name: "Granulated Sugar 2kg", brand: "Pantry Basic", price: 3.20, unitPrice: "$0.16/100g", aisle: "A3", location: "A3-R06-S2", genericName: "White Sugar 2kg", genericPrice: 1.99 },
-            { id: 43, name: "Wildflower Honey 500g", brand: "Nature Sweet", price: 6.80, unitPrice: "$1.36/100g", aisle: "A3", location: "A3-R05-S2", genericName: "Pure Honey 500g", genericPrice: 4.20 },
-            { id: 44, name: "Soy Sauce 500mL", brand: "Asian Chef", price: 3.40, unitPrice: "$0.68/100mL", aisle: "A3", location: "A3-R03-S2", genericName: "Dark Soy Sauce 500mL", genericPrice: 2.10 },
-            { id: 45, name: "Canned Tuna 185g", brand: "Ocean Catch", price: 2.50, unitPrice: "$1.35/100g", aisle: "A3", location: "A3-R04-S2", genericName: "Tuna in Water 185g", genericPrice: 1.50 },
-            { id: 46, name: "Coconut Milk 400mL", brand: "Asian Chef", price: 2.20, unitPrice: "$0.55/100mL", aisle: "A3", location: "A3-R04-S3", genericName: "Value Coconut Milk 400mL", genericPrice: 1.35 },
-            { id: 47, name: "Sea Salt 500g", brand: "Pantry Basic", price: 1.80, unitPrice: "$0.36/100g", aisle: "A3", location: "A3-R06-S3", genericName: "Table Salt 500g", genericPrice: 0.90 },
-            { id: 48, name: "Black Pepper Ground 100g", brand: "Spiceland", price: 3.99, unitPrice: "$3.99/100g", aisle: "A3", location: "A3-R06-S4", genericName: "Black Pepper 100g", genericPrice: 2.40 },
+            { id: 21, name: "Dark Chocolate Bar", price: 160, rack: "Rack C", altName: "Milk Chocolate", altPrice: 70 },
+            { id: 22, name: "Milk Chocolate", price: 70, rack: "Rack C", altName: "Dark Chocolate Bar", altPrice: 160 },
+            { id: 23, name: "Roasted Almonds (200g)", price: 240, rack: "Rack C", altName: "Peanuts (200g)", altPrice: 60 },
+            { id: 24, name: "Peanuts (200g)", price: 60, rack: "Rack C", altName: "Roasted Almonds", altPrice: 240 },
+            { id: 25, name: "Orange Juice (1L)", price: 110, rack: "Rack C", altName: "Lemon Squash", altPrice: 50 },
+            { id: 26, name: "Lemon Squash (1L)", price: 50, rack: "Rack C", altName: "Orange Juice", altPrice: 110 },
+            { id: 27, name: "Potato Chips (100g)", price: 40, rack: "Rack C", altName: "Banana Chips", altPrice: 25 },
+            { id: 28, name: "Banana Chips (100g)", price: 25, rack: "Rack C", altName: "Potato Chips", altPrice: 40 },
+            { id: 29, name: "Green Tea (25 bags)", price: 180, rack: "Rack C", altName: "Black Tea Bags", altPrice: 90 },
+            { id: 30, name: "Black Tea Bags (25 bags)", price: 90, rack: "Rack C", altName: "Green Tea", altPrice: 180 },
+            { id: 31, name: "Energy Drink (250ml)", price: 125, rack: "Rack C", altName: "Flavored Sparkling Water", altPrice: 45 },
+            { id: 32, name: "Flavored Sparkling Water (250ml)", price: 45, rack: "Rack C", altName: "Energy Drink", altPrice: 125 },
 
-            // Aisle 4 - Beverages & Snacks
-            { id: 49, name: "Sparkling Water 6x500mL", brand: "AquaFizz", price: 4.99, unitPrice: "$0.17/100mL", aisle: "A4", location: "A4-R01-S1", genericName: "Club Soda 6x500mL", genericPrice: 3.20 },
-            { id: 50, name: "Potato Chips 200g", brand: "CrunchMaster", price: 3.49, unitPrice: "$1.75/100g", aisle: "A4", location: "A4-R02-S1", genericName: "Salted Chips 200g", genericPrice: 1.99 },
-            { id: 51, name: "Dark Chocolate 100g", brand: "ChocoLuxe", price: 2.99, unitPrice: "$2.99/100g", aisle: "A4", location: "A4-R03-S1", genericName: "70% Dark Cocoa 100g", genericPrice: 1.80 },
-            { id: 52, name: "Green Tea 50 Bags", brand: "Herbal Leaf", price: 4.20, unitPrice: "$0.08/ea", aisle: "A4", location: "A4-R04-S1", genericName: "Basic Green Tea 50pk", genericPrice: 2.50 },
-            { id: 53, name: "Ground Coffee 340g", brand: "RoastWorks", price: 7.99, unitPrice: "$2.35/100g", aisle: "A4", location: "A4-R04-S2", genericName: "House Blend Coffee 340g", genericPrice: 4.99 },
-            { id: 54, name: "Pretzels 300g", brand: "CrunchMaster", price: 2.80, unitPrice: "$0.93/100g", aisle: "A4", location: "A4-R02-S2", genericName: "Salted Pretzels 300g", genericPrice: 1.70 },
-            { id: 55, name: "Energy Drink 4x250mL", brand: "VoltBoost", price: 6.99, unitPrice: "$0.70/100mL", aisle: "A4", location: "A4-R01-S2", genericName: "Energy Drink 4pk", genericPrice: 4.50 },
-            { id: 56, name: "Granola Bars 6pk", brand: "Nutty Feast", price: 3.99, unitPrice: "$0.67/ea", aisle: "A4", location: "A4-R03-S2", genericName: "Oat Bars 6pk", genericPrice: 2.40 },
-            { id: 57, name: "Mixed Nuts 250g", brand: "Nutty Feast", price: 6.50, unitPrice: "$2.60/100g", aisle: "A4", location: "A4-R03-S3", genericName: "Value Mixed Nuts 250g", genericPrice: 4.10 },
-            { id: 58, name: "Cola Soda 12x355mL", brand: "PopFizz", price: 7.49, unitPrice: "$0.18/100mL", aisle: "A4", location: "A4-R01-S3", genericName: "Store Cola 12pk", genericPrice: 4.80 },
-            { id: 59, name: "Popcorn Kernel 800g", brand: "CrunchMaster", price: 2.99, unitPrice: "$0.37/100g", aisle: "A4", location: "A4-R02-S3", genericName: "Yellow Popcorn 800g", genericPrice: 1.80 },
-            { id: 60, name: "Apple Juice 2L", brand: "SunRipe", price: 3.80, unitPrice: "$0.19/100mL", aisle: "A4", location: "A4-R01-S4", genericName: "Value Apple Juice 2L", genericPrice: 2.40 },
-            { id: 61, name: "Fruit Gummies 200g", brand: "SweetBites", price: 2.40, unitPrice: "$1.20/100g", aisle: "A4", location: "A4-R03-S4", genericName: "Gummy Bears 200g", genericPrice: 1.40 },
-            { id: 62, name: "Iced Tea 1.5L", brand: "Herbal Leaf", price: 2.99, unitPrice: "$0.20/100mL", aisle: "A4", location: "A4-R01-S5", genericName: "Lemon Iced Tea 1.5L", genericPrice: 1.85 },
-            { id: 63, name: "Rice Cakes 150g", brand: "Morning Grain", price: 1.99, unitPrice: "$1.32/100g", aisle: "A4", location: "A4-R02-S4", genericName: "Plain Rice Cakes 150g", genericPrice: 1.20 },
-            { id: 64, name: "Beef Jerky 80g", brand: "ProteinPack", price: 4.99, unitPrice: "$6.23/100g", aisle: "A4", location: "A4-R03-S5", genericName: "Dried Beef Strip 80g", genericPrice: 3.20 }
-        ];
+            { id: 33, name: "Fresh Apples (1kg)", price: 180, rack: "Rack D", altName: "Local Apples", altPrice: 110 },
+            { id: 34, name: "Local Apples (1kg)", price: 110, rack: "Rack D", altName: "Fresh Apples", altPrice: 180 },
+            { id: 35, name: "Organic Bananas (1 Dozen)", price: 70, rack: "Rack D", altName: "Regular Bananas", altPrice: 45 },
+            { id: 36, name: "Regular Bananas (1 Dozen)", price: 45, rack: "Rack D", altName: "Organic Bananas", altPrice: 70 },
+            { id: 37, name: "Tomatoes (1kg)", price: 40, rack: "Rack D", altName: "Local Tomatoes", altPrice: 25 },
+            { id: 38, name: "Local Tomatoes (1kg)", price: 25, rack: "Rack D", altName: "Tomatoes", altPrice: 40 },
+            { id: 39, name: "Spinach (Bunch)", price: 30, rack: "Rack D", altName: "Amaranth Leaves", altPrice: 20 },
+            { id: 40, name: "Amaranth Leaves (Bunch)", price: 20, rack: "Rack D", altName: "Spinach", altPrice: 30 },
+            { id: 41, name: "Carrots (1kg)", price: 60, rack: "Rack D", altName: "Seasonal Carrots", altPrice: 35 },
+            { id: 42, name: "Seasonal Carrots (1kg)", price: 35, rack: "Rack D", altName: "Carrots", altPrice: 60 },
 
-        let cart = [];
+            { id: 43, name: "Extra Virgin Olive Oil (500ml)", price: 450, rack: "Rack E", altName: "Sunflower Oil", altPrice: 140 },
+            { id: 44, name: "Sunflower Oil (500ml)", price: 140, rack: "Rack E", altName: "Olive Oil", altPrice: 450 },
+            { id: 45, name: "Black Pepper (100g)", price: 90, rack: "Rack E", altName: "Ground Black Pepper", altPrice: 55 },
+            { id: 46, name: "Ground Black Pepper (100g)", price: 55, rack: "Rack E", altName: "Whole Black Pepper", altPrice: 90 },
+            { id: 47, name: "Himalayan Pink Salt (1kg)", price: 110, rack: "Rack E", altName: "Iodized Table Salt", altPrice: 28 },
+            { id: 48, name: "Iodized Table Salt (1kg)", price: 28, rack: "Rack E", altName: "Himalayan Salt", altPrice: 110 },
+            { id: 49, name: "Organic Honey (250g)", price: 195, rack: "Rack E", altName: "Pure Jaggery", altPrice: 65 },
+            { id: 50, name: "Pure Jaggery (250g)", price: 65, rack: "Rack E", altName: "Organic Honey", altPrice: 195 },
+            { id: 51, name: "Soy Sauce (200ml)", price: 85, rack: "Rack E", altName: "Local Soy Sauce", altPrice: 45 },
+            { id: 52, name: "Local Soy Sauce (200ml)", price: 45, rack: "Rack E", altName: "Soy Sauce", altPrice: 85 },
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function filterCatalog(aisle) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderCatalog(aisle);
-        }
-
-        function renderCatalog(filter = 'All') {
-            const catalogContainer = document.getElementById('catalog');
-            catalogContainer.innerHTML = '';
-
-            const filtered = filter === 'All' ? products : products.filter(p => p.aisle === filter);
-
-            filtered.forEach(product => {
-                catalogContainer.innerHTML += `
-                    <div class="product-card">
-                        <div>
-                            <h4>${product.name}</h4>
-                            <div class="brand">${product.brand}</div>
-                            <div class="location">${product.location}</div>
-                        </div>
-                        <div>
-                            <div class="price-row">
-                                <span class="price">$${product.price.toFixed(2)}</span>
-                                <span class="unit-price">${product.unitPrice}</span>
-                            </div>
-                            <div class="product-actions">
-                                <button class="btn-add" onclick="addToCart(${product.id})">Add</button>
-                                <button class="btn-swap" onclick="swapGeneric(${product.id})" title="Swap with generic alternative">Swap</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function swapGeneric(productId) {
-            const prod = products.find(p => p.id === productId);
-            if (prod) {
-                const tempName = prod.name;
-                const tempPrice = prod.price;
-                prod.name = prod.genericName;
-                prod.price = prod.genericPrice;
-                prod.brand = "Generic Alternative";
-                prod.genericName = tempName;
-                prod.genericPrice = tempPrice;
-                renderCatalog();
-            }
-        }
-
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existing = cart.find(item => item.id === productId);
-
-            if (existing) {
-                existing.qty++;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-
-            updateCart();
-            updateMap();
-        }
-
-        function changeQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
-                }
-            }
-            updateCart();
-            updateMap();
-        }
-
-        function updateCart() {
-            const cartList = document.getElementById('cart-items');
-            const totalElement = document.getElementById('total-amount');
-
-            if (cart.length === 0) {
-                cartList.innerHTML = '<li style="color: var(--gray); text-align: center; padding: 1rem 0;">Cart is empty</li>';
-                totalElement.innerText = '$0.00';
-                return;
-            }
-
-            cartList.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                cartList.innerHTML += `
-                    <li class="cart-item">
-                        <div>
-                            <div><strong>${item.name}</strong></div>
-                            <div style="font-size: 0.75rem; color: var(--gray);">$${item.price.toFixed(2)} ea</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-                        </div>
-                    </li>
-                `;
-            });
-
-            totalElement.innerText = `$${total.toFixed(2)}`;
-        }
-
-        function updateMap() {
-            document.querySelectorAll('.aisle-node').forEach(node => node.classList.remove('active-route'));
-            const activeAisles = [...new Set(cart.map(item => item.aisle))].sort();
-
-            activeAisles.forEach(aisle => {
-                const nodeElement = document.getElementById(`node-${aisle}`);
-                if (nodeElement) nodeElement.classList.add('active-route');
-            });
-
-            const sequenceText = document.getElementById('route-sequence');
-            if (activeAisles.length > 0) {
-                sequenceText.innerText = "Start Entrance ➔ " + activeAisles.join(" ➔ ") + " ➔ Checkout Terminal";
-            } else {
-                sequenceText.innerText = "No items selected in cart.";
-            }
-        }
-
-        function generateReceipt() {
-            const receiptDiv = document.getElementById('receipt');
-            const detailsDiv = document.getElementById('receipt-details');
-
-            if (cart.length === 0) {
-                alert("Your cart is empty!");
-                return;
-            }
-
-            let total = 0;
-            let detailsHTML = '';
-
-            cart.forEach(item => {
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                detailsHTML += `
-                    <div style="display:flex; justify-content:space-between; margin-bottom: 0.2rem;">
-                        <span>${item.qty}x ${item.name.substring(0, 18)}</span>
-                        <span>$${subtotal.toFixed(2)}</span>
-                    </div>
-                `;
-            });
-
-            const tax = total * 0.05;
-            const grandTotal = total + tax;
-
-            detailsHTML += `
-                <hr style="margin: 0.4rem 0;">
-                <div style="display:flex; justify-content:space-between;"><span>SUBTOTAL:</span><span>$${total.toFixed(2)}</span></div>
-                <div style="display:flex; justify-content:space-between;"><span>TAX (5%):</span><span>$${tax.toFixed(2)}</span></div>
-                <div style="display:flex; justify-content:space-between; font-weight:bold;"><span>GRAND TOTAL:</span><span>$${grandTotal.toFixed(2)}</span></div>
-            `;
-
-            document.getElementById('receipt-date').innerText = "Date: " + new Date().toLocaleString();
-            detailsDiv.innerHTML = detailsHTML;
-            receiptDiv.style.display = 'block';
-        }
-
-        // Initialize Catalog
-        renderCatalog();
-    </script>
-</body>
-</html>
+            { id: 53, name: "Herbal Shampoo (250ml)", price: 210, rack: "Rack F", altName: "Regular Shampoo", altPrice: 120 },
+            { id: 54, name: "Regular Shampoo (250ml)", price: 120, rack: "Rack F", altName: "Herbal Shampoo", altPrice: 210 },
+            { id: 55, name: "Hand Wash Refill (500ml)", price: 115, rack: "Rack F", altName: "Bar Soap (3-pack)", altPrice: 60 },
+            { id: 56, name: "Bar Soap (3-pack)", price: 60, rack: "Rack F", altName: "Hand Wash Refill", altPrice: 115 },
+            { id: 57, name: "Toothpaste (150g)", price: 95, rack: "Rack F", altName: "Standard Toothpaste", altPrice: 50 },
+            { id: 58, name: "Standard Toothpaste (150g)", price: 50, rack: "Rack F", altName: "Herbal Toothpaste", altPrice: 95 },
+            { id: 59, name: "Microfiber Cleaning Cloth", price: 130, rack: "Rack F", alt
