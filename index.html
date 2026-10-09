@@ -67,7 +67,7 @@
             opacity: 0.6;
         }
 
-        /* Dark fallback backgrounds for exhibition venue reliability */
+        /* Dark fallback backgrounds */
         body.page-home {
             background-color: #0a140f;
             background-image: linear-gradient(rgba(10, 20, 15, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
@@ -80,6 +80,10 @@
             background-color: #0f1d24;
             background-image: linear-gradient(rgba(10, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1920&q=80');
         }
+        body.page-process {
+            background-color: #0f1a24;
+            background-image: linear-gradient(rgba(10, 20, 30, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
+        }
         body.page-research {
             background-color: #0f1923;
             background-image: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80');
@@ -87,6 +91,14 @@
         body.page-principles {
             background-color: #1e140a;
             background-image: linear-gradient(rgba(30, 20, 10, 0.8), rgba(20, 15, 10, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-apps {
+            background-color: #121f19;
+            background-image: linear-gradient(rgba(15, 30, 20, 0.8), rgba(10, 20, 15, 0.9)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80');
+        }
+        body.page-sdg {
+            background-color: #1a0f24;
+            background-image: linear-gradient(rgba(25, 15, 35, 0.8), rgba(15, 10, 25, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80');
         }
         body.page-creators {
             background-color: #190a1e;
@@ -150,7 +162,7 @@
             color: var(--text-main);
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 0.55rem 1rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             border-radius: 10px;
             cursor: pointer;
@@ -214,14 +226,14 @@
             background: rgba(0,0,0,0.25);
         }
 
-        .principles-grid, .creators-grid {
+        .principles-grid, .creators-grid, .apps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.2rem;
             margin-top: 1.5rem;
         }
 
-        .principle-item, .creator-card {
+        .principle-item, .creator-card, .app-card {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--card-border);
             padding: 1.25rem;
@@ -229,12 +241,12 @@
             transition: transform 0.2s ease;
         }
 
-        .principle-item:hover, .creator-card:hover {
+        .principle-item:hover, .creator-card:hover, .app-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.07);
         }
 
-        .principle-item h4, .creator-card h3 {
+        .principle-item h4, .creator-card h3, .app-card h4 {
             color: var(--accent-blue);
             margin: 0 0 0.5rem 0;
             font-size: 1.2rem;
@@ -288,6 +300,14 @@
             font-size: 0.95rem;
             flex: 1;
             min-width: 140px;
+        }
+
+        .input-label {
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.4rem;
         }
 
         .qty-btn {
@@ -472,16 +492,19 @@
 
     <div class="container">
         <header>
-            <h1 class="big-title">SmartCart</h1>
-            <div class="subtitle">Next-Gen AI Shopping Assistant & Supermarket Navigation</div>
+            <h1 class="big-title">SmartCart AI</h1>
+            <div class="subtitle">AI Shopping Assistant & Supermarket Navigation System</div>
 
             <!-- Navigation Buttons -->
             <div class="nav-menu">
                 <button class="nav-btn active" onclick="switchPage('home', 'page-home', this)">Home</button>
                 <button class="nav-btn" onclick="switchPage('problem', 'page-problem', this)">Problem & Objective</button>
-                <button class="nav-btn" onclick="switchPage('demo-map', 'page-demo-map', this)">Interactive Demo & Map</button>
+                <button class="nav-btn" onclick="switchPage('demo-map', 'page-demo-map', this)">Simulator & Map</button>
+                <button class="nav-btn" onclick="switchPage('process', 'page-process', this)">Workflow Process</button>
                 <button class="nav-btn" onclick="switchPage('research', 'page-research', this)">Research Data</button>
                 <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Principles</button>
+                <button class="nav-btn" onclick="switchPage('apps', 'page-apps', this)">Applications & Advantages</button>
+                <button class="nav-btn" onclick="switchPage('sdg', 'page-sdg', this)">SDGs & Future Scope</button>
                 <button class="nav-btn" onclick="switchPage('creators', 'page-creators', this)">Creators & Team</button>
             </div>
         </header>
@@ -489,9 +512,9 @@
         <!-- PAGE 1: HOME -->
         <div id="home" class="page active">
             <div class="content-card">
-                <h2 class="section-heading">Welcome to SmartCart</h2>
-                <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent AI-powered shopping companion designed to transform supermarket shopping into an effortless, budget-friendly, and optimized experience.</p>
-                <p>Explore our combined live interactive simulator, store map route planner, and project insights using the top navigation bar.</p>
+                <h2 class="section-heading">Welcome to SmartCart AI Assistant</h2>
+                <p>Welcome to our science exhibition prototype! <strong>SmartCart AI</strong> is an intelligent shopping companion designed to transform supermarket shopping into an effortless, personalized, budget-friendly, and optimized experience.</p>
+                <p>Our project addresses modern shopping challenges by providing personalized product recommendations, real-time budget management, detailed product comparisons, and indoor supermarket route navigation.</p>
                 <div class="action-buttons">
                     <div></div>
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">Next: Problem & Objective &rarr;</button>
@@ -502,12 +525,20 @@
         <!-- PAGE 2: PROBLEM & OBJECTIVE -->
         <div id="problem" class="page">
             <div class="content-card">
-                <h2 class="section-heading">Problem Statement & Objective</h2>
-                <p><strong>The Problem:</strong> Navigating large modern supermarkets causes friction for shoppers. Finding specific items, tracking real-time cart spending against budgets, and identifying suitable dietary or budget alternatives can be exhausting.</p>
-                <p style="margin-top: 1.5rem;"><strong>Our Objective:</strong> SmartCart combines automated budget calculation, real-time item dynamic tracking, smart alternative recommendations, and indoor aisle navigation into a seamless interface.</p>
+                <h2 class="section-heading">Problem Statement & Project Aim</h2>
+                <p><strong>The Problem:</strong> Shopping in large modern supermarkets can be time-consuming and confusing. Customers frequently struggle to locate specific products, stay strictly within their preset budget, compare price-to-quality alternatives, and identify items matching their specific dietary or personal preferences.</p>
+                
+                <p style="margin-top: 1.5rem;"><strong>Our Project Aim:</strong> Our project aims to develop an AI-powered Shopping Assistant that understands customer instructions and provides:</p>
+                <ul>
+                    <li><strong>Personalised Product Recommendations:</strong> Tailored to customer requirements and queries.</li>
+                    <li><strong>Automated Budget Management:</strong> Real-time spent-versus-limit tracking with warning alerts.</li>
+                    <li><strong>Smart Alternative Swapping:</strong> Instant suggestions when items are out of stock or exceed budget limits.</li>
+                    <li><strong>Indoor Store Navigation:</strong> Dynamic shortest-path mapping through aisle racks.</li>
+                </ul>
+
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('home', 'page-home', document.querySelectorAll('.nav-btn')[0])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">Next: Interactive Demo & Map &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">Next: Simulator & Map &rarr;</button>
                 </div>
             </div>
         </div>
@@ -532,9 +563,12 @@
                                 </select>
                             </div>
 
-                            <div class="sim-input-group">
-                                <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500" onchange="checkBudget()">
-                                <button class="action-btn" onclick="addItemToCart()">+ Add Item</button>
+                            <div style="margin-bottom: 1rem;">
+                                <label for="userBudget" class="input-label">SET BUDGET (₹):</label>
+                                <div class="sim-input-group">
+                                    <input type="number" id="userBudget" placeholder="Set Budget (₹)" value="500" onchange="checkBudget()">
+                                    <button class="action-btn" onclick="addItemToCart()">+ Add Item</button>
+                                </div>
                             </div>
 
                             <div id="budgetWarning" class="alert-box alert-warning">⚠️ Warning: Cart total exceeds budget threshold!</div>
@@ -607,16 +641,36 @@
 
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('problem', 'page-problem', document.querySelectorAll('.nav-btn')[1])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">Next: Research Data &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('process', 'page-process', document.querySelectorAll('.nav-btn')[3])">Next: Workflow Process &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 4: RESEARCH DATA -->
+        <!-- PAGE 4: WORKFLOW PROCESS -->
+        <div id="process" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Assistant Workflow Steps / Process</h2>
+                <ol style="line-height: 1.8; font-size: 1.1rem;">
+                    <li><strong>Create Shopping List:</strong> Establishes a structured shopping list based on user selection or queries.</li>
+                    <li><strong>Price Inspection:</strong> Automatically checks and verifies unit prices across selected inventory items.</li>
+                    <li><strong>Cost Calculation:</strong> Dynamically calculates subtotal and running spending sum.</li>
+                    <li><strong>Budget Comparison:</strong> Continuously evaluates total expenditure against the customer's preset budget limit.</li>
+                    <li><strong>Smart Suggestions:</strong> Proactively suggests budget-friendly alternatives if the budget limit is breached or items are unavailable.</li>
+                    <li><strong>Supermarket Navigation:</strong> Maps exact rack locations and plots shortest aisle paths.</li>
+                    <li><strong>Final Summary Generation:</strong> Produces a complete shopping itemized receipt/summary upon checkout.</li>
+                </ol>
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[4])">Next: Research Data &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: RESEARCH DATA -->
         <div id="research" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Research & Market Insights</h2>
-                <input type="text" id="researchSearch" class="search-box" onkeyup="filterResearchTable()" placeholder="Search statistics or sources...">
+                <input type="text" id="researchSearch" class="search-box" onkeyup="filterResearchTable()" placeholder="Search statistics or survey sources...">
                 
                 <table id="researchTable">
                     <thead>
@@ -628,59 +682,143 @@
                     <tbody>
                         <tr>
                             <td><strong>70%</strong></td>
-                            <td>Of shoppers surveyed said finding the right product in large store aisles is the most time-consuming step.</td>
+                            <td>Of online shoppers surveyed in India said finding the right product/service is the most time-consuming part of shopping.</td>
                         </tr>
                         <tr>
                             <td><strong>66%</strong></td>
-                            <td>Of Indian consumers in a PwC survey use smartphones to research prices, offers, and availability before buying.</td>
+                            <td>Of Indian consumers in a PwC survey use smartphones frequently or almost always to research products for prices, offers, and availability before buying.</td>
                         </tr>
                         <tr>
                             <td><strong>62%</strong></td>
-                            <td>Visit physical stores for product discovery, while 65% use search engines to research products.</td>
+                            <td>Of consumers in PwC's 2024 India survey visit physical stores for product discovery, while 65% use search engines to research products.</td>
                         </tr>
                         <tr>
                             <td><strong>40%</strong></td>
-                            <td>Of surveyed Indian shoppers switch stores for better deals, according to NielsenIQ grocery research.</td>
+                            <td>Of surveyed Indian shoppers switch stores for better deals, according to NielsenIQ's 2024 India grocery research.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>22%</strong></td>
+                            <td>Of customers in KPMG's 2025 India grocery customer-experience research feel that having everything they need in one place saves time and effort.</td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">Next: Principles &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('process', 'page-process', document.querySelectorAll('.nav-btn')[3])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">Next: Principles &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 5: SCIENTIFIC PRINCIPLES -->
+        <!-- PAGE 6: SCIENTIFIC PRINCIPLES -->
         <div id="principles" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Scientific Principles Used</h2>
                 <div class="principles-grid">
                     <div class="principle-item">
-                        <h4>Artificial Intelligence</h4>
-                        <p>Drives smart recommendations, evaluating cart content against user-configured budget limits.</p>
+                        <h4>Artificial Intelligence (AI)</h4>
+                        <p>Helps the system make smart recommendations based on specific customer requirements and constraints.</p>
                     </div>
                     <div class="principle-item">
-                        <h4>Graph Theory & Route Optimization</h4>
-                        <p>Utilizes shortest-path algorithms to calculate the most time-efficient trajectory across store nodes.</p>
+                        <h4>Natural Language Processing (NLP)</h4>
+                        <p>Allows the assistant to understand human natural instructions, such as <em>“Find snacks under ₹300.”</em></p>
                     </div>
                     <div class="principle-item">
                         <h4>Data Processing</h4>
-                        <p>Indexes multi-variable datasets including item codes, price points, unit quantities, and rack coordinates.</p>
+                        <p>Organises multi-variable product information such as price points, categories, availability, and rack coordinates.</p>
                     </div>
                     <div class="principle-item">
-                        <h4>Automated Logic</h4>
-                        <p>Executes continuous balance calculations, dynamic threshold monitoring, and automated alternative suggestions.</p>
+                        <h4>Mathematics & Graph Logic</h4>
+                        <p>Calculates total costs, budget headroom, and shortest path algorithms for efficient aisle navigation.</p>
+                    </div>
+                    <div class="principle-item">
+                        <h4>Automation</h4>
+                        <p>Executes automated tasks like list creation, real-time threshold monitoring, and alternative product swapping.</p>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[3])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[5])">Next: Creators &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('research', 'page-research', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('apps', 'page-apps', document.querySelectorAll('.nav-btn')[6])">Next: Applications & Advantages &rarr;</button>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 6: CREATORS & TEAM -->
+        <!-- PAGE 7: APPLICATIONS & ADVANTAGES -->
+        <div id="apps" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">Applications & Key Advantages</h2>
+                
+                <h3 style="color: var(--accent-blue); margin-top: 1rem;">Real-World Applications</h3>
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <h4>Supermarkets & Malls</h4>
+                        <p>Indoor aisle navigation and location assistance.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>Online Platforms</h4>
+                        <p>Digital shopping carts and smart grocery platforms.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>Budget & Comparison</h4>
+                        <p>Strict budget monitoring and alternative product comparison.</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>Accessibility Support</h4>
+                        <p>Guided shopping assistance for elderly or differently-abled shoppers.</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--accent-green); margin-top: 2rem;">Key Advantages</h3>
+                <ul>
+                    <li><strong>Saves Time & Effort:</strong> Dramatically reduces time spent finding items and comparing options.</li>
+                    <li><strong>Budget Control:</strong> Eliminates surprise checkout bills with proactive budget warnings.</li>
+                    <li><strong>Accessible & Convenient:</strong> Delivers an interactive experience tailored to different user demographics.</li>
+                    <li><strong>Smart Swaps:</strong> Instant alternative recommendations for out-of-stock or pricey items.</li>
+                </ul>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[5])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('sdg', 'page-sdg', document.querySelectorAll('.nav-btn')[7])">Next: SDGs & Future Scope &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 8: SDG & FUTURE SCOPE -->
+        <div id="sdg" class="page">
+            <div class="content-card">
+                <h2 class="section-heading">SDG Integration & Future Scope</h2>
+                
+                <h3 style="color: var(--accent-purple); margin-top: 1rem;">UN Sustainable Development Goals (SDGs)</h3>
+                <div class="principles-grid">
+                    <div class="principle-item">
+                        <h4 style="color: #f59e0b;">SDG 12: Responsible Consumption & Production</h4>
+                        <img src="https://commons.wikimedia.org/wiki/File:Sustainable_Development_Goal_12.png" alt="SDG 12 Responsible Consumption and Production Icon">
+                        <!--Hello I am here charizard-->
+                        <p>Helps customers compare products, avoid unnecessary panic buying, choose sustainable options, and minimize packaging and food waste through informed choices.</p>
+                    </div>
+                    <div class="principle-item">
+                        <h4 style="color: #3b82f6;">SDG 9: Industry, Innovation & Infrastructure</h4>
+                        <img src="https://commons.wikimedia.org/wiki/File:Sustainable_Development_Goal_9.png" alt="SDG 9 Industry Innovation and Infrastructure Icon">
+                        <!--Hello I am here charizard-->
+                        <p>Leverages AI, Natural Language Processing, and automated logic to build innovative digital infrastructure that modernization retail experiences.</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--accent-blue); margin-top: 2rem;">Future Scope</h3>
+                <p>In the future, our AI Shopping Assistant can evolve further by incorporating:</p>
+                <ul>
+                    <li><strong>Voice Command Interface:</strong> Hands-free searching via natural spoken queries.</li>
+                    <li><strong>Live Inventory IoT Sync:</strong> Real-time stock level synchronization directly from smart shelves.</li>
+                    <li><strong>Smart Cart Hardware Integration:</strong> Direct connection to physical smart carts with built-in scales and automated self-checkout payment modules.</li>
+                </ul>
+
+                <div class="action-buttons">
+                    <button class="nav-arrow-btn" onclick="switchPage('apps', 'page-apps', document.querySelectorAll('.nav-btn')[6])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('creators', 'page-creators', document.querySelectorAll('.nav-btn')[8])">Next: Creators &rarr;</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 9: CREATORS & TEAM -->
         <div id="creators" class="page">
             <div class="content-card">
                 <h2 class="section-heading">Our Team</h2>
@@ -702,7 +840,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button class="nav-arrow-btn" onclick="switchPage('principles', 'page-principles', document.querySelectorAll('.nav-btn')[4])">&larr; Back</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('sdg', 'page-sdg', document.querySelectorAll('.nav-btn')[7])">&larr; Back</button>
                     <div></div>
                 </div>
             </div>
@@ -755,7 +893,7 @@
     </footer>
 
     <script>
-        // Database of 64 distinct items (Pairs of primary items and budget/alt counterparts)
+        // Database of 64 distinct items
         const inventory = [
             { id: 1, name: "Organic Milk (1L)", price: 60, rack: "Rack A", altName: "Regular Milk", altPrice: 42 },
             { id: 2, name: "Regular Milk (1L)", price: 42, rack: "Rack A", altName: "Organic Milk", altPrice: 60 },
@@ -830,7 +968,7 @@
 
         let cart = [];
 
-        // 2D Coordinates for Store Map Racks (in meters relative to Entrance)
+        // 2D Coordinates for Store Map Racks (in meters)
         const rackCoordinates = {
             "Entrance": { x: 0, y: 0 },
             "Rack A": { x: 5, y: 10 },
@@ -842,7 +980,7 @@
             "Checkout": { x: 15, y: 0 }
         };
 
-        // Populate full 64-item inventory dropdown
+        // Populate full inventory dropdown
         function populateInventory(itemsToDisplay = inventory) {
             const select = document.getElementById('itemSelect');
             select.innerHTML = '';
@@ -894,7 +1032,7 @@
             const selectedItem = inventory.find(i => i.id === itemId);
             if (!selectedItem) return;
 
-            // Check if already in cart, increment quantity if so
+            // Check if already in cart
             const existingIndex = cart.findIndex(item => item.id === selectedItem.id);
             if (existingIndex !== -1) {
                 cart[existingIndex].qty += 1;
@@ -1059,7 +1197,7 @@
             display.innerHTML = outputHTML;
         }
 
-        // Simple Invoice Generator
+        // Invoice Generator
         function generateInvoice() {
             if (cart.length === 0) {
                 alert("Your cart is empty! Add items first to generate a receipt.");
@@ -1111,7 +1249,7 @@
             }
         }
 
-        // Mouse Trailing Custom Cursor Logic
+        // Custom Cursor Logic
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
 
