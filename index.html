@@ -36,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* Custom Glowing Follower Cursor */
+        /* Custom Glowing Follower Cursor (Desktop Only) */
         #cursor-dot {
             width: 12px;
             height: 12px;
@@ -65,6 +65,16 @@
             transform: translate(-50%, -50%);
             transition: transform 0.18s ease-out;
             opacity: 0.6;
+        }
+
+        /* Disable custom cursor on mobile / touch screens */
+        @media (hover: none) or (pointer: coarse), (max-width: 768px) {
+            #cursor-dot, #cursor-ring {
+                display: none !important;
+            }
+            * {
+                cursor: auto !important;
+            }
         }
 
         /* Dark fallback backgrounds */
@@ -492,14 +502,14 @@
 
     <div class="container">
         <header>
-            <h1 class="big-title">SmartCart</h1>
+            <h1 class="big-title">SmartCart AI</h1>
             <div class="subtitle">AI Shopping Assistant & Supermarket Navigation System</div>
 
             <!-- Navigation Buttons -->
             <div class="nav-menu">
                 <button class="nav-btn active" onclick="switchPage('home', 'page-home', this)">Home</button>
                 <button class="nav-btn" onclick="switchPage('problem', 'page-problem', this)">Problem & Objective</button>
-                <button class="nav-btn" onclick="switchPage('demo-map', 'page-demo-map', this)">Simulator</button>
+                <button class="nav-btn" onclick="switchPage('demo-map', 'page-demo-map', this)">Simulator & Map</button>
                 <button class="nav-btn" onclick="switchPage('process', 'page-process', this)">Workflow Process</button>
                 <button class="nav-btn" onclick="switchPage('research', 'page-research', this)">Research Data</button>
                 <button class="nav-btn" onclick="switchPage('principles', 'page-principles', this)">Principles</button>
@@ -513,7 +523,7 @@
         <div id="home" class="page active">
             <div class="content-card">
                 <h2 class="section-heading">Welcome to SmartCart AI Assistant</h2>
-                <p>Welcome to our science exhibition prototype! <strong>SmartCart</strong> is an intelligent shopping companion developed by QuantumFlux Group designed to transform supermarket shopping into an effortless, personalized, budget-friendly, and optimized experience.</p>
+                <p>Welcome to our science exhibition prototype! <strong>SmartCart AI</strong> is an intelligent shopping companion designed to transform supermarket shopping into an effortless, personalized, budget-friendly, and optimized experience.</p>
                 <p>Our project addresses modern shopping challenges by providing personalized product recommendations, real-time budget management, detailed product comparisons, and indoor supermarket route navigation.</p>
                 <div class="action-buttons">
                     <div></div>
@@ -538,7 +548,7 @@
 
                 <div class="action-buttons">
                     <button class="nav-arrow-btn" onclick="switchPage('home', 'page-home', document.querySelectorAll('.nav-btn')[0])">&larr; Back</button>
-                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">Next: Simulator &rarr;</button>
+                    <button class="nav-arrow-btn" onclick="switchPage('demo-map', 'page-demo-map', document.querySelectorAll('.nav-btn')[2])">Next: Simulator & Map &rarr;</button>
                 </div>
             </div>
         </div>
@@ -546,7 +556,7 @@
         <!-- PAGE 3: UNIFIED INTERACTIVE DEMO & MAP -->
         <div id="demo-map" class="page">
             <div class="content-card">
-                <h2 class="section-heading">Interactive Simulator</h2>
+                <h2 class="section-heading">Interactive Simulator & Live Store Map</h2>
                 
                 <div class="demo-map-grid">
                     <!-- LEFT SIDE: CART SIMULATOR -->
@@ -1245,20 +1255,22 @@
             }
         }
 
-        // Custom Cursor Logic
+        // Custom Cursor Logic (Only active on non-touch desktop screens)
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
 
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX;
+                const y = e.clientY;
 
-            dot.style.left = `${x}px`;
-            dot.style.top = `${y}px`;
+                dot.style.left = `${x}px`;
+                dot.style.top = `${y}px`;
 
-            ring.style.left = `${x}px`;
-            ring.style.top = `${y}px`;
-        });
+                ring.style.left = `${x}px`;
+                ring.style.top = `${y}px`;
+            });
+        }
 
         // Initialize on load
         window.onload = function() {
