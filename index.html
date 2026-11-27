@@ -174,6 +174,24 @@ td .x{background:none;border:none;color:var(--red);cursor:pointer;font-size:14px
 footer{border-top:1px solid var(--line);padding:40px 22px 50px;color:var(--dim);font-size:13px;text-align:center;line-height:1.7}
 footer a{color:var(--muted)}
 
+/* Big wordmark in hero */
+.wordmark{font-size:clamp(88px,18vw,220px);font-weight:700;letter-spacing:-.06em;line-height:.95;margin:0 0 10px;position:relative;color:#f5f5f7}
+.hero h1{font-size:clamp(34px,5vw,60px);margin-bottom:0}
+.hero h1 .grad{background:none;-webkit-background-clip:initial;background-clip:initial;color:#8e8e93}
+.hero .sub{margin-top:28px}
+
+/* Cursor follower (desktop with a mouse only) */
+#cursor-dot,#cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:200;border-radius:50%;opacity:0;transition:opacity .3s}
+#cursor-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--blue)}
+#cursor-ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1.5px solid rgba(41,151,255,.6);transition:opacity .3s,width .3s,height .3s,margin .3s,background .3s}
+#cursor-ring.hover{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(41,151,255,.12)}
+body.cursor-on #cursor-dot,body.cursor-on #cursor-ring{opacity:1}
+body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
+@media (hover:none),(pointer:coarse){
+  #cursor-dot,#cursor-ring{display:none!important}
+  body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:auto}
+}
+
 /* Reveal */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .rv.in{opacity:1;transform:none}
@@ -214,8 +232,9 @@ footer a{color:var(--muted)}
 
 <!-- HERO -->
 <header class="hero">
-  <p class="eyebrow">hridhAI Hackathon 2026 · AI that makes life better</p>
+  <p class="eyebrow">hridhAI Hackathon 2026 · AI That Makes Life Better</p>
   <h1>Shopping,<br><span class="grad">finally effortless.</span></h1>
+  <div class="wordmark">SmartCart</div>
   <p class="sub">SmartCart is an AI shopping companion that understands what you need, keeps you inside your budget, and walks you through the supermarket aisle by aisle.</p>
   <div class="cta">
     <a href="#simulator" class="pill">Try the simulator</a>
@@ -425,8 +444,11 @@ footer a{color:var(--muted)}
 
 <footer>
   <p>SmartCart · AI Shopping Assistant & Supermarket Navigation System</p>
-  <p>© 2026 QuantumFlux Group · Built for hridhAI Hackathon 2026 · Track: AI that makes life better · <a href="https://hridhai.in">hridhai.in</a></p>
+  <p>© 2026 QuantumFlux Group · Built for hridhAI Hackathon 2026 · Track: AI That Makes Life Better · <a href="https://hridhai.in">hridhai.in</a></p>
 </footer>
+
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
 <div class="modal" id="modal">
   <div class="receipt">
@@ -444,6 +466,31 @@ footer a{color:var(--muted)}
 // ---------- Reveal on scroll ----------
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), {threshold:.12});
 document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+// ---------- Cursor follower (mouse/trackpad only; off on mobile/touch) ----------
+const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+if (canHover) {
+  const dot = document.getElementById("cursor-dot");
+  const ring = document.getElementById("cursor-ring");
+  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+  document.body.classList.add("cursor-on");
+  addEventListener("mousemove", e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px,${my}px)`;
+  });
+  (function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px,${ry}px)`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll("a, button, input, select").forEach(el => {
+    el.addEventListener("mouseenter", () => ring.classList.add("hover"));
+    el.addEventListener("mouseleave", () => ring.classList.remove("hover"));
+  });
+  document.addEventListener("mouseleave", () => { dot.style.opacity = 0; ring.style.opacity = 0; });
+  document.addEventListener("mouseenter", () => { dot.style.opacity = 1; ring.style.opacity = 1; });
+}
 
 // ---------- Catalog (72 items, 6 racks) ----------
 const RACKS = {
