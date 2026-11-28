@@ -219,8 +219,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
     <div class="brand">SmartCart</div>
     <ul>
       <li><a href="#problem">Problem</a></li>
-      <li><a href="#simulator">Simulator</a></li>
-      <li><a href="#workflow">Workflow</a></li>
+            <li><a href="#workflow">Workflow</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#principles">Science</a></li>
       <li><a href="#applications">Applications</a></li>
@@ -237,7 +236,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
   <div class="wordmark">SmartCart</div>
   <p class="sub">SmartCart is an AI shopping companion that understands what you need, keeps you inside your budget, and walks you through the supermarket aisle by aisle.</p>
   <div class="cta">
-    <a href="#simulator" class="pill">Try the simulator</a>
+    <a href="https://booksareverycool-lang.github.io/smartcart/smartcart.html" class="pill" target="_blank" rel="noopener">Try it today</a>
     <a href="#problem" class="link">Learn more ›</a>
   </div>
 
@@ -267,7 +266,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- PROBLEM -->
 <section id="problem">
   <div class="wrap">
-    <p class="kicker rv">01 · Problem & Objective</p>
+    <p class="kicker rv">Problem & Objective</p>
     <h2 class="rv">Shopping shouldn't<br>be exhausting.</h2>
     <p class="intro rv">Large supermarkets are confusing. People struggle to find products, stay on budget, compare prices, and spot items that fit their diet. SmartCart is an AI assistant that understands plain instructions and helps shoppers finish faster, spend less, and walk less.</p>
     <div class="tiles">
@@ -279,74 +278,19 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
   </div>
 </section>
 
-<!-- SIMULATOR -->
-<section id="simulator" class="sim">
-  <div class="wrap">
-    <p class="kicker rv">02 · Interactive Simulator & Live Store Map</p>
-    <h2 class="rv">Build your cart.</h2>
-    <p class="intro rv">Search 72 items, set a budget, and watch the warnings, swaps, and route update live.</p>
-
-    <div class="simgrid">
-      <div class="panel rv">
-        <h3>Shopping cart</h3>
-        <div class="field">
-          <input type="text" id="search" placeholder="Search milk, rice, snacks…">
-          <select id="rackFilter">
-            <option value="">All racks</option>
-            <option value="A">Rack A · Dairy & Eggs</option>
-            <option value="B">Rack B · Bakery & Staples</option>
-            <option value="C">Rack C · Snacks & Drinks</option>
-            <option value="D">Rack D · Fresh Produce</option>
-            <option value="E">Rack E · Oils & Spices</option>
-            <option value="F">Rack F · Household Care</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="budget">Budget (₹)</label>
-          <input type="number" id="budget" value="500" min="0">
-        </div>
-        <div class="catalog" id="catalog"></div>
-
-        <div class="note warn" id="warn">Your cart exceeds the budget.</div>
-        <div class="note tip" id="tip">AI suggestion: swap high-cost items for budget-friendly alternatives to stay under your limit.</div>
-        <div class="note tip" id="swap"></div>
-
-        <table>
-          <thead><tr><th>Item</th><th>Price</th><th>Qty</th><th>Total</th><th></th></tr></thead>
-          <tbody id="cartBody"></tbody>
-        </table>
-        <div class="sumrow"><span id="count">Items: 0</span><span id="spent">Spent: ₹0</span></div>
-        <button class="pillbtn" id="invoiceBtn">Generate receipt</button>
-      </div>
-
-      <div class="panel rv">
-        <h3>Store route</h3>
-        <svg class="map" viewBox="0 0 400 340" id="map">
-          <g id="racks"></g>
-          <rect x="160" y="298" width="80" height="28" rx="14" fill="#2c2c2e"/>
-          <text x="200" y="316" text-anchor="middle" font-size="11" font-weight="600" fill="#f5f5f7" font-family="-apple-system,Inter,sans-serif">Entrance</text>
-          <polyline id="route" class="route" points=""/>
-        </svg>
-        <button class="pillbtn" id="routeBtn">Recalculate route</button>
-        <ol class="dirs" id="dirs"><li>Add items to see your route.</li></ol>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- WORKFLOW -->
 <section id="workflow">
   <div class="wrap">
-    <p class="kicker rv">03 · Assistant Workflow</p>
+    <p class="kicker rv">Assistant Workflow</p>
     <h2 class="rv">From list to receipt.</h2>
     <div class="steps">
-      <div class="rv"><p class="n">01</p><h4>Create shopping list</h4><p>Builds a structured list from selections or queries.</p></div>
-      <div class="rv"><p class="n">02</p><h4>Price inspection</h4><p>Verifies unit prices across selected items.</p></div>
-      <div class="rv"><p class="n">03</p><h4>Cost calculation</h4><p>Tracks subtotal and running spend.</p></div>
-      <div class="rv"><p class="n">04</p><h4>Budget comparison</h4><p>Checks total spend against your limit continuously.</p></div>
-      <div class="rv"><p class="n">05</p><h4>Smart suggestions</h4><p>Proposes cheaper alternatives when limits or stock are a problem.</p></div>
-      <div class="rv"><p class="n">06</p><h4>Supermarket navigation</h4><p>Maps rack locations and plots the shortest aisle path.</p></div>
-      <div class="rv"><p class="n">07</p><h4>Final summary</h4><p>Produces an itemised receipt at checkout.</p></div>
+      <div class="rv"><h4>Create shopping list</h4><p>Builds a structured list from selections or queries.</p></div>
+      <div class="rv"><h4>Price inspection</h4><p>Verifies unit prices across selected items.</p></div>
+      <div class="rv"><h4>Cost calculation</h4><p>Tracks subtotal and running spend.</p></div>
+      <div class="rv"><h4>Budget comparison</h4><p>Checks total spend against your limit continuously.</p></div>
+      <div class="rv"><h4>Smart suggestions</h4><p>Proposes cheaper alternatives when limits or stock are a problem.</p></div>
+      <div class="rv"><h4>Supermarket navigation</h4><p>Maps rack locations and plots the shortest aisle path.</p></div>
+      <div class="rv"><h4>Final summary</h4><p>Produces an itemised receipt at checkout.</p></div>
     </div>
   </div>
 </section>
@@ -354,7 +298,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- RESEARCH -->
 <section id="research" class="sim">
   <div class="wrap">
-    <p class="kicker rv">04 · Research & Market Insights</p>
+    <p class="kicker rv">Research & Market Insights</p>
     <h2 class="rv">The data behind it.</h2>
     <div class="stats">
       <div class="stat rv"><b>70%</b><p>of online shoppers say finding the right product is the most time-consuming part of shopping.</p><small>LocalCircles</small></div>
@@ -376,7 +320,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- PRINCIPLES -->
 <section id="principles">
   <div class="wrap">
-    <p class="kicker rv">05 · Scientific Principles</p>
+    <p class="kicker rv">Scientific Principles</p>
     <h2 class="rv">What makes it work.</h2>
     <div class="pgrid">
       <div class="pcard rv"><h3>Artificial intelligence</h3><p>Smart recommendations based on each shopper's requirements and constraints.</p></div>
@@ -391,7 +335,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- APPLICATIONS -->
 <section id="applications" class="sim">
   <div class="wrap">
-    <p class="kicker rv">06 · Applications & Advantages</p>
+    <p class="kicker rv">Applications & Advantages</p>
     <h2 class="rv">Built for every shopper.</h2>
     <div class="apps">
       <div class="app rv"><h4>Supermarkets & malls</h4><p>Indoor aisle navigation and location help.</p></div>
@@ -411,7 +355,7 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- SDGs -->
 <section id="sdgs">
   <div class="wrap">
-    <p class="kicker rv">07 · SDG Integration & Future Scope</p>
+    <p class="kicker rv">SDG Integration & Future Scope</p>
     <h2 class="rv">Better for people, and the planet.</h2>
     <div class="sdgs">
       <div class="sdg rv"><span class="tag">SDG 12</span><h3>Responsible consumption & production</h3><p>Helps shoppers compare products, avoid panic buying, choose sustainable options, and cut packaging and food waste.</p></div>
@@ -431,13 +375,13 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 <!-- TEAM -->
 <section id="team" class="sim">
   <div class="wrap">
-    <p class="kicker rv">08 · Creators & Team</p>
+    <p class="kicker rv">Creators & Team</p>
     <h2 class="rv">The people behind it.</h2>
     <p class="intro rv">Conceptualised and developed for hridhAI Hackathon 2026 by QuantumFlux Group.</p>
     <div class="team">
       <div class="person rv"><div class="av">AG</div><h3>Ahaan Garg</h3><p>Lead Developer</p></div>
-      <div class="person rv"><div class="av">NK</div><h3>Nikith Reddy Kallyam</h3><p>Chief Analyst</p></div>
-      <div class="person rv"><div class="av">RG</div><h3>Reyansh Gosika</h3><p>Media Coordinator</p></div>
+      <div class="person rv"><div class="av">NK</div><h3>Nikith Reddy Kallyam</h3><p>Lead Analyst</p></div>
+      <div class="person rv"><div class="av">RG</div><h3>Reyansh Gosika</h3><p>Chief Tester</p></div>
     </div>
   </div>
 </section>
@@ -449,18 +393,6 @@ body.cursor-on,body.cursor-on a,body.cursor-on button{cursor:none}
 
 <div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
-
-<div class="modal" id="modal">
-  <div class="receipt">
-    <h3>SmartCart Supermarket</h3>
-    <div class="c">AI-guided express checkout</div>
-    <div id="receiptBody"></div>
-    <div class="btns">
-      <button class="b-p" onclick="window.print()">Print</button>
-      <button class="b-g" onclick="closeModal()">Close</button>
-    </div>
-  </div>
-</div>
 
 <script>
 // ---------- Reveal on scroll ----------
@@ -492,132 +424,6 @@ if (canHover) {
   document.addEventListener("mouseenter", () => { dot.style.opacity = 1; ring.style.opacity = 1; });
 }
 
-// ---------- Catalog (72 items, 6 racks) ----------
-const RACKS = {
-  A:{name:"Dairy & Eggs",x:30,y:30},
-  B:{name:"Bakery & Staples",x:150,y:30},
-  C:{name:"Snacks & Drinks",x:270,y:30},
-  D:{name:"Fresh Produce",x:30,y:160},
-  E:{name:"Oils & Spices",x:150,y:160},
-  F:{name:"Household Care",x:270,y:160}
-};
-const RAW = {
-  A:[["Milk 1L",68],["Curd 400g",55],["Paneer 200g",110],["Butter 100g",58],["Eggs (12)",96],["Cheese slices 200g",135],["Fresh cream 250ml",85],["Ghee 500ml",320],["Dahi 1kg",72],["Lassi 200ml",30],["Ice cream 500ml",190],["Cottage cheese 400g",140]],
-  B:[["Bread 400g",60],["Rice 5kg",420],["Atta 5kg",260],["Toor dal 1kg",165],["Oats 500g",210],["Poha 500g",55],["Maida 1kg",48],["Besan 500g",70],["Pasta 500g",95],["Sooji 500g",45],["Rajma 500g",120],["Cornflakes 375g",180]],
-  C:[["Chips 50g",20],["Biscuits 120g",30],["Cola 2L",95],["Orange juice 1L",110],["Chocolate bar 40g",40],["Namkeen 200g",60],["Popcorn 100g",70],["Mineral water 1L",20],["Energy drink 250ml",110],["Cookies 200g",90],["Peanut butter 340g",180],["Jam 500g",150]],
-  D:[["Tomatoes 1kg",40],["Onion 1kg",35],["Bananas (dozen)",60],["Apples 1kg",180],["Spinach bunch",25],["Potato 1kg",30],["Carrots 500g",40],["Lemons (6)",30],["Green chillies 100g",15],["Coriander bunch",10],["Grapes 500g",120],["Capsicum 500g",55]],
-  E:[["Sunflower oil 1L",150],["Turmeric 100g",45],["Garam masala 100g",80],["Salt 1kg",25],["Sugar 1kg",50],["Mustard oil 1L",175],["Red chilli powder 200g",90],["Cumin seeds 100g",65],["Black pepper 50g",70],["Tea powder 250g",135],["Coffee powder 100g",150],["Honey 250g",180]],
-  F:[["Detergent 1kg",180],["Dish soap 250ml",85],["Toothpaste 150g",110],["Tissue 3-pack",120],["Shampoo 340ml",250],["Floor cleaner 500ml",130],["Toilet cleaner 500ml",115],["Hand wash 250ml",95],["Sanitizer 200ml",70],["Garbage bags (30)",150],["Laundry soap 3pc",60],["Face wash 100ml",140]]
-};
-const CATALOG = [];
-Object.entries(RAW).forEach(([rack, items]) => items.forEach(([name, price], i) => CATALOG.push({id:rack+i, rack, name, price})));
-const byId = id => CATALOG.find(p => p.id === id);
-
-const cart = {};
-const $ = id => document.getElementById(id);
-const fmt = n => "₹" + n.toLocaleString("en-IN");
-
-function renderCatalog() {
-  const q = $("search").value.trim().toLowerCase();
-  const r = $("rackFilter").value;
-  const list = CATALOG.filter(p => (!r || p.rack === r) && p.name.toLowerCase().includes(q));
-  $("catalog").innerHTML = list.length ? list.map(p =>
-    `<div class="item"><div>${p.name}<small>Rack ${p.rack} · ${RACKS[p.rack].name}</small></div>
-     <div class="right"><b>${fmt(p.price)}</b><button class="add" onclick="addItem('${p.id}')" aria-label="Add">+</button></div></div>`).join("")
-    : `<p style="color:var(--dim)">No items match.</p>`;
-}
-
-function addItem(id) { cart[id] = (cart[id] || 0) + 1; update(); }
-function changeQty(id, d) { cart[id] += d; if (cart[id] <= 0) delete cart[id]; update(); }
-function removeItem(id) { delete cart[id]; update(); }
-function total() { return Object.entries(cart).reduce((s, [id, q]) => s + byId(id).price * q, 0); }
-
-function update() {
-  const ids = Object.keys(cart);
-  const t = total();
-  const budget = Number($("budget").value) || 0;
-  const count = ids.reduce((s, id) => s + cart[id], 0);
-
-  $("cartBody").innerHTML = ids.length ? ids.map(id => {
-    const p = byId(id);
-    return `<tr><td>${p.name}</td><td>${fmt(p.price)}</td>
-      <td><button class="q" onclick="changeQty('${id}',-1)">−</button>${cart[id]}<button class="q" onclick="changeQty('${id}',1)">+</button></td>
-      <td>${fmt(p.price * cart[id])}</td>
-      <td><button class="x" onclick="removeItem('${id}')">✕</button></td></tr>`;
-  }).join("") : `<tr><td colspan="5" style="color:var(--dim)">Your cart is empty.</td></tr>`;
-
-  $("count").textContent = "Items: " + count;
-  $("spent").textContent = "Spent: " + fmt(t) + (budget ? " of " + fmt(budget) : "");
-
-  const over = budget && t > budget;
-  $("warn").style.display = over ? "block" : "none";
-  $("tip").style.display = over ? "none" : "block";
-
-  const swap = $("swap");
-  swap.style.display = "none";
-  if (over && ids.length) {
-    const priciest = ids.map(byId).sort((a, b) => b.price - a.price)[0];
-    const alt = CATALOG.filter(p => p.rack === priciest.rack && p.id !== priciest.id && !cart[p.id] && p.price < priciest.price).sort((a, b) => a.price - b.price)[0];
-    if (alt) {
-      swap.style.display = "block";
-      swap.textContent = `Swap ${priciest.name} (${fmt(priciest.price)}) for ${alt.name} (${fmt(alt.price)}) and save ${fmt(priciest.price - alt.price)}.`;
-    }
-  }
-  renderRoute();
-}
-
-function center(k) { return {x: RACKS[k].x + 50, y: RACKS[k].y + 45}; }
-function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
-
-function renderRoute() {
-  $("racks").innerHTML = Object.entries(RACKS).map(([k, r]) => {
-    const active = CATALOG.some(p => p.rack === k && cart[p.id]);
-    return `<rect x="${r.x}" y="${r.y}" width="100" height="90" rx="16" fill="${active ? '#2997ff' : '#2c2c2e'}"/>
-      <text class="rlabel" x="${r.x + 50}" y="${r.y + 40}" text-anchor="middle">Rack ${k}</text>
-      <text class="rsub" x="${r.x + 50}" y="${r.y + 58}" text-anchor="middle">${r.name}</text>`;
-  }).join("");
-
-  const needed = Object.keys(RACKS).filter(k => CATALOG.some(p => p.rack === k && cart[p.id]));
-  const start = {x: 200, y: 312};
-  const path = [start];
-  let rem = [...needed], cur = start;
-  while (rem.length) {
-    rem.sort((a, b) => dist(cur, center(a)) - dist(cur, center(b)));
-    cur = center(rem.shift());
-    path.push(cur);
-  }
-  if (needed.length) path.push(start);
-  $("route").setAttribute("points", path.map(p => `${p.x},${p.y}`).join(" "));
-
-  $("dirs").innerHTML = needed.length
-    ? needed.map((k, i) => `<li>Step ${i + 1}: go to <b>Rack ${k}</b>, ${RACKS[k].name}</li>`).join("") + `<li>Return to checkout at the entrance.</li>`
-    : `<li>Add items to see your route.</li>`;
-}
-
-function openInvoice() {
-  const ids = Object.keys(cart);
-  if (!ids.length) { alert("Add some items first."); return; }
-  const sub = total(), gst = Math.round(sub * 0.05), grand = sub + gst;
-  $("receiptBody").innerHTML = `
-    <div class="c">${new Date().toLocaleString("en-IN")}</div>
-    ${ids.map(id => { const p = byId(id); return `<div class="r"><span>${p.name} × ${cart[id]}</span><span>${fmt(p.price * cart[id])}</span></div>`; }).join("")}
-    <div class="r t"><span>Subtotal</span><span>${fmt(sub)}</span></div>
-    <div class="r"><span>GST (5%)</span><span>${fmt(gst)}</span></div>
-    <div class="r t g"><span>Total paid</span><span>${fmt(grand)}</span></div>
-    <div class="c" style="margin-top:14px">Thank you for shopping with SmartCart.</div>`;
-  $("modal").classList.add("open");
-}
-function closeModal() { $("modal").classList.remove("open"); }
-
-$("search").addEventListener("input", renderCatalog);
-$("rackFilter").addEventListener("change", renderCatalog);
-$("budget").addEventListener("input", update);
-$("routeBtn").addEventListener("click", renderRoute);
-$("invoiceBtn").addEventListener("click", openInvoice);
-$("modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
-
-renderCatalog();
-update();
 </script>
 </body>
 </html>
